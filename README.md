@@ -1,7 +1,6 @@
 ## 專案當前進度
 
-> 已經有基本的 tanstack query hook 的用法了，等哪天需要用到 redux toolkit ，需要複習的時候，我再把 redux toolkit 引用到該專案，
-> 專案更新至 2025/0614
+> 預計製作 後台 基於 antd v5 + tailwindcss v4
 
 ### 專案啟用 React + TypeScript + Vite + redux toolkit
 
@@ -17,7 +16,7 @@ npm run dev
 
 ### 專案用途
 
-> 結合 Redux Toolkit + TanStack Query (React Query) + vite 的 demo
+> 結合 TanStack Query (React Query) + vite + tailwindcss v4 + antd v5
 
 #### 一開始建置 vite + react + typescript 專案
 
