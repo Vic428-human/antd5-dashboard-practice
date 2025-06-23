@@ -1,38 +1,111 @@
-import React from "react";
-// import { useApplication } from "./hooks/useApplication.tsx";
-// import { queryClient } from "./queryClient.ts";
+import React, { useState } from "react";
+// https://ant.design/docs/spec/layout
+// Layout => https://ant.design/components/layout
+import "./styles/dashboard.css";
+import { Button, Layout, Menu, theme } from "antd";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  PieChartOutlined,
+  UserOutlined,
+  DesktopOutlined,
+  TeamOutlined,
+  FileOutlined,
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+
+const { Header, Sider, Content, Footer } = Layout;
 
 function App() {
-  // const { data, isLoading, error } = useApplication();
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
-  // const renderContent = () => {
-  //   if (data) {
-  //     return (
-  //       <>
-  //         <h2>直接調用 tanstack的 custom hook</h2>
-  //         <pre>{JSON.stringify(data, null, 2)}</pre>
-  //       </>
-  //     );
-  //   }
-  //   if (isLoading) return <p>Loading...</p>;
-  //   if (error) return <p>Error: {error.message}</p>;
-  //   return <p>No data available.</p>;
-  // };
+  type MenuItem = Required<MenuProps>["items"][number];
 
-  // const test = queryClient.getQueriesData({ queryKey: ["application"] });
-  // const applicationQueryData = test.length > 0 ? test[0][1] : null;
+  function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[]
+  ): MenuItem {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    } as MenuItem;
+  }
 
+  const items: MenuItem[] = [
+    getItem("Option 1", "1", <PieChartOutlined />),
+    getItem("Option 2", "2", <DesktopOutlined />),
+    getItem("User", "sub1", <UserOutlined />, [
+      getItem("Tom", "3"),
+      getItem("Bill", "4"),
+      getItem("Alex", "5"),
+    ]),
+    getItem("Team", "sub2", <TeamOutlined />, [
+      getItem("Team 1", "6"),
+      getItem("Team 2", "8"),
+    ]),
+    getItem("Files", "9", <FileOutlined />),
+  ];
   return (
-    <div>
-      <h1>Demo</h1>
-      {/* {renderContent()}
-      <h3>queryClient.getQueriesData 方式直接調用</h3>
-      {applicationQueryData ? (
-        <pre>{JSON.stringify(applicationQueryData, null, 2)}</pre>
-      ) : (
-        <p>No cached data found in queryClient.</p>
-      )} */}
-    </div>
+    <Layout className="container">
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+      >
+        <div className="demo-logo-vertical">Logo</div>
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={items}
+        />
+      </Sider>
+
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
+        <Content style={{ margin: "24px 16px 0" }}>
+          <div
+            style={{
+              padding: 24,
+              minHeight: 360,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            content
+          </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>
   );
 }
 

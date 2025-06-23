@@ -19,9 +19,16 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ConfigProvider>
+      {/* https://ant.design/docs/react/customize-theme#seed-token */}
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#fcba03",
+          },
+        }}
+      >
         <App />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </ConfigProvider>
     </QueryClientProvider>
   </StrictMode>
