@@ -6,52 +6,26 @@ import { Button, Layout, Menu, theme } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  PieChartOutlined,
   UserOutlined,
   DesktopOutlined,
   TeamOutlined,
   FileOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
+import { useNavigate } from "react-router-dom";
+import MainContent from "./routes/MainContent.tsx";
+import SidebarMenu from "./components/Menu/SidebarMenu.tsx";
 
 const { Header, Sider, Content, Footer } = Layout;
 
 function App() {
+  const navigate = useNavigate();
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  type MenuItem = Required<MenuProps>["items"][number];
-
-  function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[]
-  ): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-    } as MenuItem;
-  }
-
-  const items: MenuItem[] = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
-    getItem("User", "sub1", <UserOutlined />, [
-      getItem("Tom", "3"),
-      getItem("Bill", "4"),
-      getItem("Alex", "5"),
-    ]),
-    getItem("Team", "sub2", <TeamOutlined />, [
-      getItem("Team 1", "6"),
-      getItem("Team 2", "8"),
-    ]),
-    getItem("Files", "9", <FileOutlined />),
-  ];
   return (
     <Layout className="container">
       <Sider
@@ -68,12 +42,7 @@ function App() {
         }}
       >
         <div className="demo-logo-vertical">Logo</div>
-        <Menu
-          theme="dark"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={items}
-        />
+        <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>
 
       <Layout>
@@ -98,7 +67,7 @@ function App() {
               borderRadius: borderRadiusLG,
             }}
           >
-            content
+            <MainContent />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
@@ -108,5 +77,23 @@ function App() {
     </Layout>
   );
 }
+
+// function MainContent() {
+//   return (
+//     <div>
+//       <Routes>
+//         <Route path="/" element={<div>Home</div>} />
+//         <Route path="/menu-1/:other" element={<Menu1Detail />} />
+//         <Route path="/usersList" element={<div>Users</div>} />
+//         <Route path="/file" element={<div>file</div>} />
+//       </Routes>
+//     </div>
+//   );
+// }
+
+// function Menu1Detail() {
+//   const params = useParams();
+//   return <div>menu-1: {params.other}</div>;
+// }
 
 export default App;
