@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 export const testAPI = async (test) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve("success",test);
+      resolve( `${test} success`);
     }, 3000);
   });
 

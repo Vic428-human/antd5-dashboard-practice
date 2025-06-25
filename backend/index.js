@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import 'dotenv/config'
+import cookieParser from 'cookie-parser';
 import {testAPI, logAnalytics } from "./db.js";
 import { authMiddleware } from "./middleware/auth.js";
 
@@ -8,9 +10,11 @@ const app = express();
 app.use(
   cors({
     origin: "http://localhost:3000",
+    credentials: true,
   })
 );
 app.use(express.json());
+app.use(cookieParser()); // Use without secret for unsigned cookies
 
 app.post("/order", authMiddleware, async (req, res) => {
   const { cart } = req.body;
