@@ -3,13 +3,9 @@ import mongoose from "mongoose";
 
 // 定義用戶資料結構（Schema）
 const userSchema = new mongoose.Schema({
-  // 名稱欄位：類型為 String，必須填寫
+  // ====== 註冊會用到 =======
   name: { type: String, required: true },
-
-  // 電子郵件欄位：類型為 String，必須填寫且唯一
   email: { type: String, required: true, unique: true },
-
-  // 密碼欄位：類型為 String，必須填寫
   password: { type: String, required: true },
 
   // 資料驗證 OTP 碼欄位：類型為 String，預設值為空字符串
