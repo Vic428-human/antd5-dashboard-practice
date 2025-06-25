@@ -5,7 +5,12 @@ import cookieParser from 'cookie-parser';
 import {testAPI, logAnalytics } from "./db.js";
 import { authMiddleware } from "./middleware/auth.js";
 
+import connectDB from "./config/mongodb.js";
+
 const app = express();
+
+const port = process.env.PORT || 4000
+connectDB();
 
 app.use(
   cors({
@@ -40,6 +45,8 @@ app.use((err, req, res, next) => {
   return res.status(err.status || 500).json(err.message);
 });
 
-app.listen(8000, () => {
-  console.log(`Server is running on port 8000`);
+
+
+app.listen(port, () => {
+  console.log(`伺服器連線中 ${port}`);
 });
