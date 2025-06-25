@@ -16,11 +16,15 @@ app.use(
 app.use(express.json());
 app.use(cookieParser()); // Use without secret for unsigned cookies
 
+app.get('/',  (req, res) => {
+  res.send('api working!')
+})
+
 app.post("/order", authMiddleware, async (req, res) => {
   const { cart } = req.body;
   const userId = req.userId;
   const message = await testAPI('test');
-  await logAnalytics({ cart, userId }, "Payment successful");
+  await logAnalytics({ cart, userId }, "testAPI successful");
   // const orderId = await createOrder(cart, userId);
   // await logAnalytics({ orderId, userId }, "Order created");
   // const emailResult = await sendEmail(orderId, userId);
