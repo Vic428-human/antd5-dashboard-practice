@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 
-export const testAPI = async (test) => {
+export const testAPI = async ({ test }) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve( `${test} success`);
@@ -37,7 +37,7 @@ export const sendEmail = async (orderId, userId, emailResult) => {
 export const logAnalytics = async (data, message) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("當前步驟: ", message);
+      console.log("log資訊 ===> ", data, ' testAPI 執行狀態： ', message);
       resolve("success");
     }, 1000);
   });

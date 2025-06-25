@@ -21,10 +21,13 @@ app.get('/',  (req, res) => {
 })
 
 app.post("/order", authMiddleware, async (req, res) => {
-  const { cart } = req.body;
-  const userId = req.userId;
-  const message = await testAPI('test');
-  await logAnalytics({ cart, userId }, "testAPI successful");
+  // 分別取得傳進來的 body requet 對應的 key value
+  const { test } = req.body;
+  if (!test) {
+    return res.status(400).json({ message: "test is required" });
+  }
+  const message = await testAPI({ test });
+  await logAnalytics({ test }, "testAPI successful!!!");
   // const orderId = await createOrder(cart, userId);
   // await logAnalytics({ orderId, userId }, "Order created");
   // const emailResult = await sendEmail(orderId, userId);
