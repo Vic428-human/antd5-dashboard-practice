@@ -4,8 +4,8 @@ import 'dotenv/config'
 import cookieParser from 'cookie-parser';
 import {testAPI, logAnalytics } from "./db.js";
 import { authMiddleware } from "./middleware/auth.js";
-
 import connectDB from "./config/mongodb.js";
+import authRouter from './routes/authRoutes.js' 
 
 const app = express();
 
@@ -21,10 +21,15 @@ app.use(
 app.use(express.json());
 app.use(cookieParser()); // Use without secret for unsigned cookies
 
+// ==== api endpoint 集中在這 ====
 app.get('/',  (req, res) => {
   res.send('api working!')
 })
+// 使用 auth 相關
+app.use('/api/auth', authRouter)
 
+
+// endpoint 單一測試
 app.post("/order", authMiddleware, async (req, res) => {
   // 分別取得傳進來的 body requet 對應的 key value
   const { test } = req.body;
