@@ -1,23 +1,23 @@
-import bcrypt from 'bcrypt';
-import { jwt, JsonWebTokenError } from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js'
 
 
 export const register = async (req, res) => {
   const {name, email, password} = req.body;
+  console.log(name, email, password);
   if(!name || !email || !password) {
     return res.json({success: false, message: 'register controller error'})
   }
   try {
-
     // 註冊前先檢查是否註冊過
     const userExist = await userModel.findOne({email})
 
+
     if(userExist) {
-      return res.json({success: false, message: 'User already exist'})
+      return res.json({success: false, message: '!User already exist'})
     }
 
-    
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // 加密後的 使用者資料 寫入資料庫
@@ -43,7 +43,7 @@ export const register = async (req, res) => {
 
     return res.json({success: true, message: 'User created successfully'})
   } catch (error) {
-    return res.json({success: false, message: 'User already exist'})
+    return res.json({success: false, message: error.message  })
   }
 }
 // ...existing code...
