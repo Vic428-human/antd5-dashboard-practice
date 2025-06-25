@@ -32,7 +32,8 @@ export const register = async (req, res) => {
     // 第二個參數 ===> 作為密鑰來簽名這個 token 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
 
-    res.cookite('token', token, {
+    // 可以用來儲存使用者的 jwt token ，以便在使用者造訪網站的不同頁面時保持使用者的登入狀態。
+    res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
@@ -45,3 +46,46 @@ export const register = async (req, res) => {
     return res.json({success: false, message: 'User already exist'})
   }
 }
+// ...existing code...
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.json({ success: false, message: 'login controller error' });
+  }
+  try {
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.json({ success: false, message: 'User not found' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
+      maxAge: 60 * 60 * 1000,
+    });
+
+    return res.json({ success: true, message: 'Login successful' });
+  } catch (error) {
+    return res.json({ success: false, message: 'Login error' });
+  }
+};
+
+export const logout = (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== 'development',
+    sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
+  });
+  return res.json({ success: true, message: 'Logout successful' });
+};
+
+// ...existing code...
