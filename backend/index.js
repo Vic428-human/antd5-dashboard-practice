@@ -26,7 +26,7 @@ app.get('/',  (req, res) => {
   res.send('api working!')
 })
 // 使用 auth 相關
-app.use('/api/auth', authRouter)
+app.use('/api/auth', authMiddleware, authRouter)
 
 
 // endpoint 單一測試
