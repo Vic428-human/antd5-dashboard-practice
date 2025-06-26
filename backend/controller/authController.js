@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js'
+import transporter from '../config/nodemailer.js'
 
 
 export const register = async (req, res) => {
@@ -40,6 +41,18 @@ export const register = async (req, res) => {
       maxAge: 60 * 60 * 1000,
     });
   
+    // 我要做一個 歡迎訊息，通知 該筆信件從哪跟寄去哪，要有主題，跟一些描述
+    // 發送歡迎郵件
+    await transporter.sendMail({
+      from: process.env.MAIL_FROM_ADDRESS, 
+      to: email,
+      subject: "歡迎加入我們的服務！",
+      text: `親愛的 ${name}，\n\n感謝您註冊我們的服務！如果有任何問題，請隨時聯絡我們。\n\n祝好，\nMaddison Foo Koch`, 
+      html: `<p>親愛的 <b>${name}</b>，</p>
+         <p>感謝您註冊我們的服務！如果有任何問題，請隨時聯絡我們。</p>
+         <p>祝好，<br/>Maddison Foo Koch</p>`, // HTML 內容
+    });
+
 
     return res.json({success: true, message: 'User created successfully'})
   } catch (error) {
