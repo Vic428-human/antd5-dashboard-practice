@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 
-  // 資料驗證 OTP 碼欄位：類型為 String，預設值為空字符串
+  // otp 那一串數字字串
   verifyOtp: { type: String, default: '' },
 
-  // 資料驗證 OTP 碼過期時間欄位：類型為 Number，預設值為 0
+  // otp 到期時間 
   verifyOtpExpireAt: { type: Number, default: 0 },
 
-  // 帳戶是否已驗證欄位：類型為 Boolean，預設值為 false
+  // 確認當前帳號使用者是否已經驗證，如未驗證，則需要進行otp驗證
   isAccountVerified: { type: Boolean, default: false },
 
   // 重置密碼 OTP 碼欄位：類型為 String，預設值為空字符串
