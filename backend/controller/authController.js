@@ -43,23 +43,72 @@ export const register = async (req, res) => {
   
     // 我要做一個 歡迎訊息，通知 該筆信件從哪跟寄去哪，要有主題，跟一些描述
     // 發送歡迎郵件
-    await transporter.sendMail({
-      from: process.env.MAIL_FROM_ADDRESS, 
-      to: email,
-      subject: "歡迎加入我們的服務！",
-      text: `親愛的 ${name}，\n\n感謝您註冊我們的服務！如果有任何問題，請隨時聯絡我們。\n\n祝好，\nMaddison Foo Koch`, 
-      html: `<p>親愛的 <b>${name}</b>，</p>
-         <p>感謝您註冊我們的服務！如果有任何問題，請隨時聯絡我們。</p>
-         <p>祝好，<br/>Maddison Foo Koch</p>`, // HTML 內容
-    });
-
+    // await transporter.sendMail({
+    //   from: process.env.MAIL_FROM_ADDRESS, 
+    //   to: email,
+    //   subject: "歡迎加入我們的服務！",
+    //   text: `親愛的 ${name}，\n\n感謝您註冊我們的服務！如果有任何問題，請隨時聯絡我們。\n\n祝好，\nMaddison Foo Koch`, 
+    //   html: `<p>親愛的 <b>${name}</b>，</p>
+    //      <p>感謝您註冊我們的服務！如果有任何問題，請隨時聯絡我們。</p>
+    //      <p>祝好，<br/>Maddison Foo Koch</p>`, // HTML 內容
+    // });
 
     return res.json({success: true, message: 'User created successfully'})
   } catch (error) {
     return res.json({success: false, message: error.message  })
   }
 }
-// ...existing code...
+
+// OTP 產生器
+function generateOtp() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+// 發送 OTP 驗證信：假設剛註冊完，要用otp驗證
+export const sendOtpVerification = async (req, res) => {
+  const { userId, name } = req.body;
+  if (!userId) {
+        return res.status(400).json({ success: false, message: '缺少 userId' });
+    }
+  try {
+    // 從 MongoDB 查找用戶
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+        return res.status(404).json({ success: false, message: '找不到該使用者' });
+    }
+    // 如果已經驗證過，可以選擇不發送 OTP
+    if (user.isAccountVerified) {
+        return res.status(200).json({ success: true, message: '帳號已驗證過' });
+    }
+    const now = new Date(); // 獲取當前時間
+    const expiriedAt = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 加上 24 小時
+    const otp = generateOtp();
+    console.log('OTP:', otp);
+    // 更新用戶資料
+    user.verifyOtpExpireAt = expiriedAt;
+    user.verifyOtp = otp;
+    await user.save(); // 確保 OTP 和過期時間已經儲存到資料庫
+
+    // 發送 OTP 到信箱
+    const mailOptions = {
+        from: process.env.MAIL_FROM_ADDRESS,
+        to: user.email,
+        subject: 'OTP 驗證碼 - 請完成信箱驗證',
+        html: `<p>親愛的 <b>${user.name}</b>，</p>
+        <p>您的 OTP 為：<b>${otp}</b>，請於24小時內完成驗證。</p>
+        <p>如有任何問題請聯繫客服</p>
+        <p>客服電話：000-000-000</p>`,
+    };
+    
+    await transporter.sendMail(mailOptions);
+
+    return res.json({success: true, message: 'User created successfully'})
+  } catch (error) {
+    return res.json({success: false, message: error.message  })
+  }
+}
+
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -93,6 +142,7 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
+  console.log('logout');
   res.clearCookie('token', {
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development',
