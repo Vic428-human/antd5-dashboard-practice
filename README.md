@@ -5,7 +5,7 @@
 
 ### 目前專案進度
 
-- 後端功能 登入/登出/註冊/發送郵件/otp 驗證
+- 後端功能 登入/登出/註冊/發送郵件/otp 驗證/jwt 引用/中間件
 - 前端功能 菜單/路由
 
 ### 專案啟用 React + TypeScript + Vite + redux toolkit
