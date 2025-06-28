@@ -1,6 +1,12 @@
-## 專案當前進度
+## 前言
 
-> 預計製作 後台 基於 antd v5 + tailwindcss v4
+> 後台 基於 antd v5 + tailwindcss v4 + nodejs + mongodb
+> 該項目已於 2025/0623 開始製作
+
+### 目前專案進度
+
+- 後端功能 登入/登出/註冊/發送郵件/otp 驗證
+- 前端功能 菜單/路由
 
 ### 專案啟用 React + TypeScript + Vite + redux toolkit
 

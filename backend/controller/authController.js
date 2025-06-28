@@ -63,7 +63,7 @@ export const sendOtpVerification = async (req, res) => {
   const { userId } = req.body;
   if (!userId) {
         return res.status(400).json({ success: false, message: '缺少 userId' });
-    }
+  }
   try {
     const user = await userModel.findById(userId);
     if (!user) {
