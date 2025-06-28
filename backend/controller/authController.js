@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js'
 import transporter from '../config/nodemailer.js'
 
-
+// 註冊後，資料庫會多一筆 user 資訊，會有各自對應的 _id => userId
 export const register = async (req, res) => {
   const {name, email, password} = req.body;
   console.log(name, email, password);
@@ -59,14 +59,9 @@ export const register = async (req, res) => {
   }
 }
 
-// OTP 產生器
-function generateOtp() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
-// 發送 OTP 驗證信：假設剛註冊完，要用otp驗證
+// 發送 OTP 驗證信：假設剛註冊完，需要驗證帳號，會發送一組OTP到信箱
 export const sendOtpVerification = async (req, res) => {
-  const { userId, name } = req.body;
+  const { userId } = req.body;
   if (!userId) {
         return res.status(400).json({ success: false, message: '缺少 userId' });
     }
@@ -104,6 +99,40 @@ export const sendOtpVerification = async (req, res) => {
     await transporter.sendMail(mailOptions);
 
     return res.json({success: true, message: 'User created successfully'})
+  } catch (error) {
+    return res.json({success: false, message: error.message  })
+  }
+}
+
+// 信箱拿到OTP後對剛才註冊的信箱做驗證
+export const verifyEmail = async (req, res) => {
+  const { userId, otp } = req.body;
+  if (!userId || !otp) {
+        return res.status(400).json({ success: false, message: '缺少 userId 或 otp' });
+  }
+  try {
+    const user = await userModel.findById(userId);  
+    // 驗證順序由範圍大到小，由重要程度大到小檢查
+    if (!user) {
+        return res.status(404).json({ success: false, message: '找不到該使用者' });
+    }
+
+    if (user.verifyOtp !== otp || !user.verifyOtp) {
+        return res.status(400).json({ success: false, message: '驗證碼錯誤' });
+    }
+
+    if (user.verifyOtpExpireAt < Date.now()) {
+        return res.status(400).json({ success: false, message: '驗證碼已過期' });
+    }
+
+    // 更新用戶資料
+    user.isAccountVerified = true;
+    user.verifyOtp = '';
+    user.verifyOtpExpireAt = '';
+    await user.save();
+
+    return res.json({success: true, message: '帳號驗證成功'})
+
   } catch (error) {
     return res.json({success: false, message: error.message  })
   }
@@ -151,4 +180,7 @@ export const logout = (req, res) => {
   return res.json({ success: true, message: 'Logout successful' });
 };
 
-// ...existing code...
+// OTP 產生器
+function generateOtp() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
