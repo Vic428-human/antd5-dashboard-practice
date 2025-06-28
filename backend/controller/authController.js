@@ -32,7 +32,6 @@ export const register = async (req, res) => {
     // 伺服器可以驗證JWT 的簽名，從而確保用戶的身份，並授予相應的訪問權限。 
     // 第二個參數 ===> 作為密鑰來簽名這個 token 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
-
     // 可以用來儲存使用者的 jwt token ，以便在使用者造訪網站的不同頁面時保持使用者的登入狀態。
     res.cookie('token', token, {
       httpOnly: true,
@@ -66,9 +65,7 @@ export const sendOtpVerification = async (req, res) => {
         return res.status(400).json({ success: false, message: '缺少 userId' });
     }
   try {
-    // 從 MongoDB 查找用戶
     const user = await userModel.findById(userId);
-
     if (!user) {
         return res.status(404).json({ success: false, message: '找不到該使用者' });
     }
@@ -79,7 +76,7 @@ export const sendOtpVerification = async (req, res) => {
     const now = new Date(); // 獲取當前時間
     const expiriedAt = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 加上 24 小時
     const otp = generateOtp();
-    console.log('OTP:', otp);
+    
     // 更新用戶資料
     user.verifyOtpExpireAt = expiriedAt;
     user.verifyOtp = otp;
