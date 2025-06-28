@@ -1,6 +1,6 @@
 ## 前言
 
-> 後台 基於 antd v5 + tailwindcss v4 + nodejs + mongodb
+> 後台 基於 antd v5 + tailwindcss v4 + nodejs + mongodb + TanStack Query
 > 該項目已於 2025/0623 開始製作
 
 ### 目前專案進度
@@ -38,11 +38,7 @@ npm run dev
 >
 ```
 
-### 專案用途
-
-> 結合 TanStack Query (React Query) + vite + tailwindcss v4 + antd v5
-
-#### 一開始建置 vite + react + typescript 專案
+#### 該專案建置方式
 
 ```js
 npm create vite@latest my-app -- --template react-ts
