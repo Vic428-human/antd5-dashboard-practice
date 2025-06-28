@@ -95,7 +95,7 @@ export const sendOtpVerification = async (req, res) => {
     
     await transporter.sendMail(mailOptions);
 
-    return res.json({success: true, message: 'User created successfully'})
+    return res.json({success: true, message: 'OTP 已發送到您的信箱'})
   } catch (error) {
     return res.json({success: false, message: error.message  })
   }
