@@ -6,6 +6,7 @@ import {testAPI, logAnalytics } from "./db.js";
 import { authMiddleware } from "./middleware/auth.js";
 import connectDB from "./config/mongodb.js";
 import authRouter from './routes/authRoutes.js' 
+import userRouter from './routes/userRoutes.js' 
 
 const app = express();
 
@@ -27,7 +28,8 @@ app.get('/',  (req, res) => {
 })
 // 使用 auth 相關
 app.use('/api/auth',authRouter)
-
+// 使用 user 相關
+app.use('/api/user',userRouter)
 
 // endpoint 單一測試
 app.post("/order", authMiddleware, async (req, res) => {
