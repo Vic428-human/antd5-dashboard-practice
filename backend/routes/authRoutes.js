@@ -10,7 +10,7 @@ authRouter.post("/sendOtpVerification", authMiddleware, sendOtpVerification);
 // 使用者透過cookies中的 userId 跟自己輸入的 otp驗證碼 確認是否為同一個人，如果是代表該信箱帳號驗證通過
 authRouter.post("/verifyEmail", authMiddleware, verifyEmail);
 // 針對特定email重新發送OTP
-authRouter.post("/resendOtp",authMiddleware, resendOtp);
+authRouter.post("/resendOtp", resendOtp);
 authRouter.post("/login", login);
 authRouter.post("/logout", logout);
 
