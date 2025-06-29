@@ -16,6 +16,7 @@
 - [x] 重新發送 OTP 驗證碼
 - [x] JWT 機制引用
 - [x] 中間件獲取 cookies 配合 cookie-parser 使用
+- [x] 重置密碼
 
 ---
 
@@ -36,8 +37,6 @@ npm run dev
 ## CODEBASE
 
 #### 其他功能
-
-> 暫時沒用到，只是預先建置
 
 - [後端相關的路由](https://github.com/Vic428-human/antd5-dashboard-practice/blob/main/src/routes/MainContent.tsx)
 - [useHook 基礎的 tanstack-query 基本用法](https://github.com/Vic428-human/redux-toolkit-and-tanstack-query-demo/blob/main/src/hooks/useApplimittation.ts)
