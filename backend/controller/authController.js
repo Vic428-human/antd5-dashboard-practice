@@ -3,10 +3,9 @@ import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js'
 import transporter from '../config/nodemailer.js'
 
-// 註冊後，資料庫會多一筆 user 資訊，會有各自對應的 _id => userId
+// STEP 1:註冊後，資料庫會多一筆 user 資訊，會有各自對應的 _id => userId
 export const register = async (req, res) => {
   const {name, email, password} = req.body;
-  console.log(name, email, password);
   if(!name || !email || !password) {
     return res.json({success: false, message: 'register controller error'})
   }
@@ -14,9 +13,8 @@ export const register = async (req, res) => {
     // 註冊前先檢查是否註冊過
     const userExist = await userModel.findOne({email})
 
-
     if(userExist) {
-      return res.json({success: false, message: '!User already exist'})
+      return res.json({success: false, message: '該信箱帳號已經註冊過'})
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -58,7 +56,7 @@ export const register = async (req, res) => {
   }
 }
 
-// 發送 OTP 驗證信：假設剛註冊完，需要驗證帳號，會發送一組OTP到信箱
+// STEP 2: 發送 OTP 驗證信：假設剛註冊完需要驗證帳號，會發送一組OTP到信箱
 export const sendOtpVerification = async (req, res) => {
   const { userId } = req.body;
   if (!userId) {
@@ -101,7 +99,7 @@ export const sendOtpVerification = async (req, res) => {
   }
 }
 
-// 信箱拿到OTP後對剛才註冊的信箱做驗證
+// STEP 3:信箱拿到OTP後，對剛才註冊的信箱做驗證
 export const verifyEmail = async (req, res) => {
   const { userId, otp } = req.body;
   if (!userId || !otp) {
@@ -135,7 +133,7 @@ export const verifyEmail = async (req, res) => {
   }
 }
 
-// 針對特定email重新發送OTP
+// STEP 4: 針對特定email重新發送OTP
 export const resendOtp = async (req, res) => {
   const { email } = req.body; // 不能用 email 去查詢當前user Cast to ObjectId failed for value \"z0983195379a@gmail.com\" (type string) at path \"_id\" for model \"user\"
   if (!email) {
@@ -172,6 +170,48 @@ export const resendOtp = async (req, res) => {
     return res.json({ success: true, message: 'OTP 已重新發送到您的信箱' });
   } catch (error) {
     return res.json({ success: false, message: error.message });
+  }
+};
+
+// STEP 5: 使用 resendOtp 之前發送的 OTP 進行重置密碼
+export const resetPassword = async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  // 基本欄位檢查
+  if (!email || !otp || !newPassword) {
+    return res.status(400).json({ success: false, message: '缺少參數' });
+  }
+
+  try {
+    // 查找使用者
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ success: false, message: '找不到該使用者' });
+    }
+
+    // 檢查 OTP 是否正確
+    if (user.resetOtp !== otp) {
+      return res.status(400).json({ success: false, message: 'OTP 驗證碼錯誤' });
+    }
+
+    // 檢查 OTP 是否過期
+    const now = new Date();
+    if (!user.resetOtpExpireAt || user.resetOtpExpireAt < now) {
+      return res.status(400).json({ success: false, message: 'OTP 已過期，請重新申請' });
+    }
+
+    // 密碼加密（建議使用 bcrypt）
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // 更新密碼，清空 OTP
+    user.password = hashedPassword;
+    user.resetOtp = '';
+    user.resetOtpExpireAt = '';
+    await user.save();
+
+    return res.json({ success: true, message: '密碼已成功重置' });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
