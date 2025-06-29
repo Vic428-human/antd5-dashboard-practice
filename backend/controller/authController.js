@@ -109,20 +109,20 @@ export const verifyEmail = async (req, res) => {
   }
   try {
     const user = await userModel.findById(userId);  
-    // 驗證順序由範圍大到小，由重要程度大到小檢查
+    // 驗證順序由範圍大到小，由重要程度大到小檢查verifyOtp
     if (!user) {
         return res.status(404).json({ success: false, message: '找不到該使用者' });
     }
 
     if (user.verifyOtp !== otp || !user.verifyOtp) {
         return res.status(400).json({ success: false, message: '驗證碼錯誤' });
-    }
+    } 
 
     if (user.verifyOtpExpireAt < Date.now()) {
         return res.status(400).json({ success: false, message: '驗證碼已過期' });
     }
 
-    // 更新用戶資料
+    // 驗證成功的話，就把過期時間和驗證碼清空
     user.isAccountVerified = true;
     user.verifyOtp = '';
     user.verifyOtpExpireAt = '';
@@ -135,6 +135,45 @@ export const verifyEmail = async (req, res) => {
   }
 }
 
+// 針對特定email重新發送OTP
+export const resendOtp = async (req, res) => {
+  const { email } = req.body; // 不能用 email 去查詢當前user Cast to ObjectId failed for value \"z0983195379a@gmail.com\" (type string) at path \"_id\" for model \"user\"
+  if (!email) {
+    return res.status(400).json({ success: false, message: '缺少 email' });
+  }
+  try {
+    const user = await userModel.findOne({email});
+    if (!user) {
+      return res.status(404).json({ success: false, message: '找不到該使用者' });
+    }
+
+    // 計算新的過期時間
+    const now = new Date();
+    const expiriedAt = new Date(now.getTime() + 5 * 60 * 1000); 
+    user.resetOtpExpireAt = expiriedAt;
+
+    const resendOtp = generateOtp();
+    user.resetOtp = resendOtp;
+
+    await user.save();
+
+    // 發送OTP郵件，OTP只會發送到這個email
+    const mailOptions = {
+      from: process.env.MAIL_FROM_ADDRESS,
+      to: user.email,
+      subject: '重置的 OTP 驗證碼已發送  - 請盡快更新你的當前信箱的密碼',
+      html: `<p>親愛的 <b>${user.name}</b>，</p>
+        <p>重置的 OTP 為：<b>${resendOtp}</b>，請於5分鐘內完成驗證。</p>
+        <p>如有任何問題請聯繫客服</p>
+        <p>客服電話：000-000-000</p>`,
+    };
+    await transporter.sendMail(mailOptions);
+
+    return res.json({ success: true, message: 'OTP 已重新發送到您的信箱' });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};
 
 export const login = async (req, res) => {
   const { email, password } = req.body;

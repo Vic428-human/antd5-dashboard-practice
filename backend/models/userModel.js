@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
   // 確認當前帳號使用者是否已經驗證，如未驗證，則需要進行 OTP 驗證
   isAccountVerified: { type: Boolean, default: false },
 
-  // 重置密碼 OTP 碼欄位：類型為 String，預設值為空字符串
+  // 重置密碼前，重新發送新的驗證碼
   resetOtp: { type: String, default: '' },
 
-  // 重置密碼 OTP 碼過期時間欄位：類型為 Number，預設值為 0
+  // 重置密碼前，重新發送新的驗證碼的到期時間
   resetOtpExpireAt: { type: Number, default: 0 },
 });
 
