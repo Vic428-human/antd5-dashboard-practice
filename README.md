@@ -7,6 +7,7 @@
 
 #### 後端功能:
 
+- [實現用戶註冊與登入驗證流程，並透過 JWT 與 OTP 郵件驗證保障安全性](https://github.com/Vic428-human/antd5-dashboard-practice/blob/main/src/routes/MainContent.tsx)
 - [x] 登入
 - [x] 登出
 - [x] 註冊
@@ -15,6 +16,8 @@
 - [x] 重新發送 OTP 驗證碼
 - [x] JWT 機制引用
 - [x] 中間件獲取 cookies 配合 cookie-parser 使用
+
+- [其他](https://github.com/Vic428-human/antd5-dashboard-practice/blob/main/src/routes/MainContent.tsx)
 
 #### 前端功能：
 
