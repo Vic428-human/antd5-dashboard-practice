@@ -21,7 +21,7 @@ export const authMiddleware = async (req, res, next) => {
 
   // 如果沒有 token
   if (!token) {
-    return res.status(401).json({ error: '請提供 jwt cookie' });
+    return res.status(401).json({ error: '請提供 jwt cookie，請先登入，或是重新註冊帳號' });
   }
 
   try {
