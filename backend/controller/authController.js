@@ -29,7 +29,7 @@ export const register = async (req, res) => {
     // 伺服器可以使用 jwt.sign 創建一個JWT，並將其發送給客戶端。 客戶端在後續請求中，將JWT 包含在 Authorization 標頭中，
     // 伺服器可以驗證JWT 的簽名，從而確保用戶的身份，並授予相應的訪問權限。 
     // 第二個參數 ===> 作為密鑰來簽名這個 token 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
     // 可以用來儲存使用者的 jwt token ，以便在使用者造訪網站的不同頁面時保持使用者的登入狀態。
     res.cookie('token', token, {
       httpOnly: true,
@@ -50,7 +50,7 @@ export const register = async (req, res) => {
     //      <p>祝好，<br/>Maddison Foo Koch</p>`, // HTML 內容
     // });
 
-    return res.json({success: true, message: 'User created successfully'})
+    return res.json({success: true, message: '註冊成功，請透過驗證信件驗證帳號' })
   } catch (error) {
     return res.json({success: false, message: error.message  })
   }
