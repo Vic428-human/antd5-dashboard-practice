@@ -29,13 +29,13 @@ export const register = async (req, res) => {
     // 伺服器可以使用 jwt.sign 創建一個JWT，並將其發送給客戶端。 客戶端在後續請求中，將JWT 包含在 Authorization 標頭中，
     // 伺服器可以驗證JWT 的簽名，從而確保用戶的身份，並授予相應的訪問權限。 
     // 第二個參數 ===> 作為密鑰來簽名這個 token 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
     // 可以用來儲存使用者的 jwt token ，以便在使用者造訪網站的不同頁面時保持使用者的登入狀態。
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
-      maxAge: 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1週
     });
   
     // 我要做一個 歡迎訊息，通知 該筆信件從哪跟寄去哪，要有主題，跟一些描述
@@ -231,13 +231,13 @@ export const login = async (req, res) => {
       return res.json({ success: false, message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
-      maxAge: 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1週
     });
 
     return res.json({ success: true, message: 'Login successful' });
