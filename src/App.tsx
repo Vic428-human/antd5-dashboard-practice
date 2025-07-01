@@ -46,17 +46,15 @@ function App() {
       </Sider>
 
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
+        <Header>
+          <div>
+            <Button
+              type="primary"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed((prev) => !prev)}
+              style={{ marginLeft: "-50px" }} // className="-ml-[50px]" 沒效，可能  Ant Design 的 Button 元件預設會覆蓋掉部分外部樣式
+            />
+          </div>
         </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
