@@ -1,9 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @layer theme, base, components, utilities;
 
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
 
-/* put @tailwind utilities in #app or other selectors */
-#app {
+/* AI 說這段不會正確處理 參考 https://github.com/ant-design/ant-design/issues/38794 */
+/* #app {
   @tailwind utilities;
+} */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  /* 確定有生效，比較黑小的視覺效果 */
+  font-family: "Outfit", sans-serif; 
 }
+/* ====== 還沒定案 =====  */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root { /* 確保 html, body 和根元素都有足夠高度 */
+  height: 100%;
+}
+
+body {
+  display: flex; /* 讓 body 成為 Flex 容器 */
+  flex-direction: column; /* 垂直排列子元素 */
+  min-height: 100vh; /* 確保 body 至少佔滿視窗高度 */
+}
+
+/* ====== 還沒定案 =====  */
