@@ -26,7 +26,7 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("首頁", "/", <AssetIcon name="person_icon" alt="首頁" />, []),
+  getItem("首頁", "/", <AssetIcon name="person_icon" alt="首頁" />),
   getItem(
     "測試菜單",
     "/menu-1",
