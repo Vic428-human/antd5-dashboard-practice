@@ -1,18 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+/* 根據 ANTD 官方文件，推薦這樣安排 layer 順序 ==> @layer theme, base, antd, components, utilities; */
+/* 這行聲明了四個 CSS layer 的順序，讓 Tailwind 可以正確地管理樣式的覆蓋與優先權 */
 @layer theme, base, components, utilities;
 
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/preflight.css' layer(base);
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+/* 「Unknown at rule @theme css(unknownAtRules)」，我目前是在 setting.json配置 */
+
+/* 這裡的 breakpoint v4 寫法等同於 V3 theme.screens.sm */
+/* 這裡的 colors v4 寫法等同於 V3 theme.extend.colors.orange */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
+  --color-twitter-blue: #1da1f2;
+  --color-orange-500: #ffa500;
+}
 
 /* AI 說這段不會正確處理 參考 https://github.com/ant-design/ant-design/issues/38794 */
 /* #app {
   @tailwind utilities;
 } */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   /* 確定有生效，比較黑小的視覺效果 */
-  font-family: "Outfit", sans-serif; 
+  font-family: "Outfit", sans-serif;
 }
 /* ====== 還沒定案 =====  */
 body {
@@ -20,7 +36,10 @@ body {
   padding: 0;
 }
 
-html, body, #root { /* 確保 html, body 和根元素都有足夠高度 */
+html,
+body,
+#root {
+  /* 確保 html, body 和根元素都有足夠高度 */
   height: 100%;
 }
 
@@ -31,3 +50,16 @@ body {
 }
 
 /* ====== 還沒定案 =====  */
+
+/* 其他說明 */
+/* 
+1.根本原因在於 Tailwind 的 base（reset）樣式和 ANTD 的全域樣式會互相覆蓋，導致元件顯示異常。，根本原因在於 Tailwind 的 base（reset）樣式和 ANTD 的全域樣式會互相覆蓋，導致元件顯示異常。 
+2.@import "tailwindcss"; 會一次性載入 Tailwind 的 base、components、utilities 三層樣式，等同於：
+3.這會導致 Tailwind 的 base（Preflight reset）直接覆蓋 ANTD 的部分預設樣式，例如 img、a、svg 等標籤的顯示方式、對齊、顏色等
+4.如果你只用 @import "tailwindcss/theme.css" 和 @import "tailwindcss/preflight.css"，因為沒有 utilities 層，Tailwind 只 reset 了部分東西，衝突較少，所以「不會跑版」
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+*/
+/* @import "tailwindcss"; */
