@@ -22,17 +22,17 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       {/* https://ant.design/docs/react/customize-theme#seed-token */}
-      {/* <ConfigProvider
+      <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#fcba03",
+            colorPrimary: "#ff0000",
           },
         }}
-      > */}
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-      {/* </ConfigProvider> */}
+      >
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ConfigProvider>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   </StrictMode>

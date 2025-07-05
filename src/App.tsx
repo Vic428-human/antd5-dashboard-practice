@@ -44,7 +44,7 @@ function App() {
       >
         <div className="demo-logo-vertical">
           <img src={assets.logo} alt="" className="w-28 sm:w-32" />
-          <h1>後台管理系統</h1>
+          <h1 className="text-red-500">後台管理系統</h1>
         </div>
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>

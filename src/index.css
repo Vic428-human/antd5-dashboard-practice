@@ -1,3 +1,12 @@
+@layer tailwind-base, antd;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+/* 這邊不能加，一加了組件就爆了
+@tailwind components; */
+@tailwind utilities;
+
 *,
 *::before,
 *::after {
