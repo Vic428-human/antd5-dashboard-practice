@@ -15,6 +15,7 @@ import type { MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
 import MainContent from "./routes/MainContent.tsx";
 import SidebarMenu from "./components/Menu/SidebarMenu.tsx";
+import { assets } from "./assets/assets.ts";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -41,7 +42,10 @@ function App() {
           console.log(collapsed, type);
         }}
       >
-        <div className="demo-logo-vertical">Logo</div>
+        <div className="demo-logo-vertical">
+          <img src={assets.logo} alt="" className="w-28 sm:w-32" />
+          <h1>後台管理系統</h1>
+        </div>
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>
 
@@ -69,6 +73,7 @@ function App() {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
+          <div className="text-orange-500">這是 Twitter 藍色背景</div>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
         </Footer>
       </Layout>

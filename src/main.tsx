@@ -6,7 +6,7 @@
 // 内置的时间库使用 Dayjs 替代 Moment.js
 // 不再支持 babel-plugin-import，CSS-in-JS 本身具有按需加载的能力，不再需要插件支持
 // https://ant.design/docs/react/migration-v5-cn
-import "antd/dist/reset.css"; // 引入 Ant Design 的重置样式  antd 规范样式
+// import "antd/dist/reset.css"; // 引入 Ant Design 的重置样式  antd 规范样式
 import { ConfigProvider } from "antd";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -22,17 +22,17 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       {/* https://ant.design/docs/react/customize-theme#seed-token */}
-      <ConfigProvider
+      {/* <ConfigProvider
         theme={{
           token: {
             colorPrimary: "#fcba03",
           },
         }}
-      >
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ConfigProvider>
+      > */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+      {/* </ConfigProvider> */}
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   </StrictMode>

@@ -1,28 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
-/* 根據 ANTD 官方文件，推薦這樣安排 layer 順序 ==> @layer theme, base, antd, components, utilities; */
-/* 這行聲明了四個 CSS layer 的順序，讓 Tailwind 可以正確地管理樣式的覆蓋與優先權 */
-@layer theme, base, components, utilities;
-
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/preflight.css" layer(base);
-/* 「Unknown at rule @theme css(unknownAtRules)」，我目前是在 setting.json配置 */
-
-/* 這裡的 breakpoint v4 寫法等同於 V3 theme.screens.sm */
-/* 這裡的 colors v4 寫法等同於 V3 theme.extend.colors.orange */
-@theme {
-  --breakpoint-*: initial;
-  --breakpoint-sm: 480px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 976px;
-  --color-twitter-blue: #1da1f2;
-  --color-orange-500: #ffa500;
-}
-
-/* AI 說這段不會正確處理 參考 https://github.com/ant-design/ant-design/issues/38794 */
-/* #app {
-  @tailwind utilities;
-} */
-
 *,
 *::before,
 *::after {
@@ -63,3 +38,29 @@ body {
 @import "tailwindcss/utilities";
 */
 /* @import "tailwindcss"; */
+
+/* 這裡的 breakpoint v4 寫法等同於 V3 theme.screens.sm */
+/* 這裡的 colors v4 寫法等同於 V3 theme.extend.colors.orange */
+/* 但目前實驗似乎沒生效 */
+/* 「Unknown at rule @theme css(unknownAtRules)」，我目前是在 setting.json配置 */
+/* @theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
+  --color-twitter-blue: #1da1f2;
+  --color-orange-500: #ffa500;
+} */
+
+/* AI 說這段不會正確處理 參考 https://github.com/ant-design/ant-design/issues/38794 */
+/* #app {
+  @tailwind utilities;
+} */
+
+/* 
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+/* 根據 ANTD 官方文件，推薦這樣安排 layer 順序 ==> @layer theme, base, antd, components, utilities; */
+/* 這行聲明了四個 CSS layer 的順序，讓 Tailwind 可以正確地管理樣式的覆蓋與優先權 */
+/* @layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base); */
