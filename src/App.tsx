@@ -73,7 +73,9 @@ function App() {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          <div className="text-orange-500">這是 Twitter 藍色背景</div>
+          <div className="bg-blue-300 text-orange-500">
+            這是 Twitter 藍色背景
+          </div>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
         </Footer>
       </Layout>
