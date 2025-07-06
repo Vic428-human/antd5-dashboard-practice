@@ -28,20 +28,19 @@ function getItem(
 const items: MenuItem[] = [
   getItem("首頁", "/", <AssetIcon name="person_icon" alt="首頁" />),
   getItem(
-    "測試菜單",
-    "/menu-1",
+    "驗證菜單",
+    "/verify-menu",
     <AssetIcon name="mail_icon" alt="測試菜單" />,
     [
-      getItem("Tom", "/menu-1/tom"),
-      getItem("Bill", "/menu-1/bill"),
-      getItem("Alex", "/menu-1/alex"),
+      getItem("信箱驗證", "/verify-menu/email-verify"),
+      getItem("密碼重置", "/verify-menu/reset-password"),
     ]
   ),
   getItem("Team", "/team", <TeamOutlined />, [
     getItem("Team 1", "6"),
     getItem("Team 2", "8"),
   ]),
-  getItem("Files", "/file", <FileOutlined />),
+  getItem("登入", "/login", <FileOutlined />),
 ];
 
 interface SidebarMenuProps {
