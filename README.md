@@ -64,3 +64,41 @@ npm run dev
 ```js
 npm create vite@latest my-app -- --template react-ts
 ```
+
+### 備份
+
+```
+      {/* <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+      >
+        <div className="demo-logo-vertical">
+          <img src={assets.logo} alt="" className="w-28 sm:w-32" />
+          <h1 className="text-red-500">後台管理系統</h1>
+        </div>
+        <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
+      </Sider> */}
+
+```
+
+````
+   <div>
+            {/* <Button
+              type="primary"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed((prev) => !prev)}
+              style={{ marginLeft: "-50px" }} // className="-ml-[50px]" 沒效，可能  Ant Design 的 Button 元件預設會覆蓋掉部分外部樣式
+            /> */}
+          </div>
+
+          ```
+````
