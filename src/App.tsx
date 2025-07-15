@@ -29,55 +29,42 @@ function App() {
 
   return (
     <Layout className="container">
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div className="demo-logo-vertical">
-          <img src={assets.logo} alt="" className="w-28 sm:w-32" />
-          <h1 className="text-red-500">後台管理系統</h1>
-        </div>
-        <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
-      </Sider>
-
       <Layout>
-        <Header>
-          <div>
-            <Button
-              type="primary"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed((prev) => !prev)}
-              style={{ marginLeft: "-50px" }} // className="-ml-[50px]" 沒效，可能  Ant Design 的 Button 元件預設會覆蓋掉部分外部樣式
-            />
-          </div>
-        </Header>
-        <Content style={{ margin: "24px 16px 0" }}>
+        <>
           <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
+            className="relative w-full px-24 py-0.5 bg-yellow-600  shadow-md
+ outline-offset-[-1px] "
+          >
+            {/* 中間文字置中 */}
+            <div className="flex justify-center items-center">
+              <div className="text-center text-secondary-950 text-base font-medium font-['Roboto'] leading-normal tracking-tight">
+                SETTINGS
+              </div>
+            </div>
+            {/* Reset 按鈕定位在右上角 */}
+            <div className="w-44 h-6 py-1 absolute top-[2px] right-0 bg-yellow-500 rounded-md flex justify-center items-center gap-1 overflow-hidden">
+              <div className="flex-1 py-0.5 flex flex-col justify-center items-center">
+                <div className="text-center text-secondary-950 text-base font-medium font-['Roboto'] leading-none">
+                  Reset
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+        <Content style={{ margin: "" }}>
+          <div
+            style={
+              {
+                // padding: 24,
+                // minHeight: 360,
+                // background: colorBgContainer,
+                // borderRadius: borderRadiusLG,
+              }
+            }
           >
             <MainContent />
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          <div className="bg-blue-300 text-orange-500">
-            這是 Twitter 藍色背景
-          </div>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
