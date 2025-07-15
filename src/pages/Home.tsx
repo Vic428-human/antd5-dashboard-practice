@@ -16,7 +16,9 @@ const Home = () => {
           Lucky Exchange
         </LuckyExchangeButton>
         {/* // 顯示 OFF 狀態 */}
-        <LuckyExchangeButton isActive={false} />
+        <LuckyExchangeButton isActive={false}>
+          Lucky Exchange
+        </LuckyExchangeButton>
       </div>
     </div>
   );
