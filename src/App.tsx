@@ -28,7 +28,8 @@ function App() {
   } = theme.useToken();
 
   return (
-    <Layout className="container">
+    <Layout className="container bg-[#302200]">
+      w{" "}
       <Layout>
         <>
           <div
@@ -51,7 +52,7 @@ function App() {
             </div>
           </div>
         </>
-        <Content style={{ margin: "" }}>
+        <Content className=" bg-[#302200]" style={{ margin: "" }}>
           <div
             style={
               {

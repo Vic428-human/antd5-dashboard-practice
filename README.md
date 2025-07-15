@@ -63,11 +63,76 @@ npm run dev
 
 ```js
 npm create vite@latest my-app -- --template react-ts
+
 ```
+
+````
+ <div>
+          {/* <!-- Lucky Exchange (ON) --> */}
+          <div className="flex items-center mb-2">
+            <div
+              className="flex items-center w-full h-8 rounded-full bg-green-500 shadow"
+              style={{
+                border: "1.5px solid #B6B6B6",
+              }}
+            >
+              <span
+                className="flex items-center justify-center font-bold text-xs"
+                style={{
+                  width: "28px",
+                  height: "28px",
+                  background: "#fff",
+                  color: "#168c36",
+                  borderRadius: "50%",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                  border:
+                    "linear-gradient(#FFFFFF, #FBFBFB, #F0EFF0, #DEDCEF, #CECCD0) border-box, #fff padding-box",
+                }}
+              >
+                <img src={assets.on} alt="" className="w-28 sm:w-28" />
+              </span>
+
+              <span className="flex items-center justify-center w-full text-[#3A3B3E] text-base font-['Roboto']">
+                Lucky Exchange
+              </span>
+            </div>
+          </div>
+          {/* <!-- Lucky Exchange (OFF) --> */}
+          <div className="flex items-center mb-2">
+            <div
+              className="flex items-center w-full h-8 rounded-full bg-[#F9FAFC] shadow"
+              style={{
+                border: "1.5px solid #B6B6B6",
+              }}
+            >
+              <span
+                className="flex items-center justify-center font-bold text-xs"
+                style={{
+                  width: "28px",
+                  height: "28px",
+                  background: "#fff",
+                  color: "#168c36",
+                  borderRadius: "50%",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                  border:
+                    "linear-gradient(#FFFFFF, #FBFBFB, #F0EFF0, #DEDCEF, #CECCD0) border-box, #fff padding-box",
+                }}
+              >
+                <img src={assets.off} alt="" className="w-28 sm:w-28" />
+              </span>
+
+              <span className="flex items-center justify-center w-full text-[#CCCDD1] text-base font-['Roboto']">
+                Lucky Exchange
+              </span>
+            </div>
+          </div>
+        </div>
+        ```
 
 ### 備份
 
-```
+````
+
       {/* <Sider
         trigger={null}
         collapsible
@@ -90,7 +155,8 @@ npm create vite@latest my-app -- --template react-ts
 
 ```
 
-````
+```
+
    <div>
             {/* <Button
               type="primary"
@@ -101,4 +167,7 @@ npm create vite@latest my-app -- --template react-ts
           </div>
 
           ```
-````
+
+```
+
+```

@@ -1,9 +1,23 @@
 import React from "react";
-
+import { assets } from "../assets/assets.ts";
+import LuckyExchangeButton from "../components/LuckyExchangeButton.tsx";
 const Home = () => {
   return (
-    <div className="max-h-screen">
-      <div>123</div>
+    <div className="max-h-screen bg-[#302200]">
+      <div className="w-72 rounded-xl overflow-hidden shadow p-4">
+        <div
+          className="text-center bg-[#8A4F0E] text-white text-lg font-semibold mb-3"
+          style={{ borderTopLeftRadius: "16px", borderTopRightRadius: "16px" }}
+        >
+          Template
+        </div>
+        {/* // 顯示 ON 狀態 */}
+        <LuckyExchangeButton isActive={true}>
+          Lucky Exchange
+        </LuckyExchangeButton>
+        {/* // 顯示 OFF 狀態 */}
+        <LuckyExchangeButton isActive={false} />
+      </div>
     </div>
   );
 };
