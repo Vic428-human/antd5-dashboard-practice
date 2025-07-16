@@ -178,9 +178,7 @@ const Home = () => {
                         {block.icon}
                       </div>
                       {/* 下半部分 */}
-                      <div className={`${block.bottomColor} h-6 w-full`}>
-                        {block.icon2}
-                      </div>
+                      <div className={`${block.bottomColor} h-6 w-full`}></div>
                     </div>
                   ))}
                 </div>
@@ -188,7 +186,7 @@ const Home = () => {
               {/* <div className="flex flex-wrap gap-2 p-6 bg-gray-50 rounded-lg"></div> */}
             </div>
             <div className="absolute top-0 right-0 z-50">
-              {/* <SketchPicker /> */}
+              <SketchPicker />
             </div>
           </div>
           <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container pt-6">
