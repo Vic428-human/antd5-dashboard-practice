@@ -3,8 +3,18 @@ import { assets } from "../assets/assets.ts";
 import { Switch } from "antd";
 import { SketchPicker } from "react-color";
 
+const initialSettings = [
+  { label: "選項 A", checked: true, a: "附加資訊 A", b: "備註 A" },
+  { label: "選項 B", checked: false, a: "附加資訊 B", b: "備註 B" },
+  { label: "選項 C", checked: true, a: "附加資訊 C", b: "備註 C" },
+];
 const Home = () => {
-  const [checked, setChecked] = useState(false);
+  const [settingList, setSettingList] = useState(initialSettings);
+  const [checked, setChecked] = useState({
+    switch1: false,
+    switch2: false,
+    // add more switches as needed
+  });
   const [selectedIndex, setSelectedIndex] = useState(null);
   const colorBlocks = [
     // 第一個色塊 - 橙色/黑色
@@ -97,47 +107,34 @@ const Home = () => {
     },
   ];
 
-  const handleChange = (checked) => {
-    setChecked(checked);
+  const handleChange = (checked: boolean, index: number) => {
+    const newList = [...settingList];
+    newList[index] = { ...newList[index], checked };
+    setSettingList(newList);
   };
-  const handleColorChange = (color) => {
-    console.log("Selected Color:", color);
-  };
-  const settingList = [
-    "Template",
-    "Template2",
-    "Template3",
-    "Template4",
-    "Template5",
-    "Template",
-    "Template2",
-    "Template3",
-    "Template4",
-    "Template5",
-  ];
-
+  console.log({ settingList });
   return (
     <div className="flex flex-col max-h-auto h-[100vh]">
       <div className="flex flex-wrap items-center justify-start gap-2 bg-content-container">
         {settingList.map((item, index) => (
           <div
             key={index}
-            className="min-width-[200px] rounded-md shadow-lg overflow-hidden text-white"
+            className="min-w-[200px] rounded-md shadow-lg overflow-hidden text-white"
           >
             <div className="bg-yellow-400 text-center py-2 font-semibold text-zinc-900">
-              {item}
+              {item.label}
             </div>
 
-            <div className="bg-zinc-800 p-4 flex items-center justify-center">
+            <div className="bg-zinc-800 p-4 flex flex-col gap-3 items-center justify-center">
               <div className="flex items-center gap-3">
                 <Switch
                   checkedChildren="ON"
                   unCheckedChildren="OFF"
-                  checked={checked}
-                  onChange={handleChange}
+                  checked={item.checked}
+                  onChange={(checked) => handleChange(checked, index)}
                 />
                 <span className="font-medium">
-                  {checked ? "Lucky Exchange" : "DSADSADAS"}
+                  {item.checked ? item.a : item.b}
                 </span>
               </div>
             </div>
@@ -207,13 +204,13 @@ const Home = () => {
             title="Inline Frame Example"
             width="100%"
             height="100%"
-            src="https://sprodm.uni247.xyz/#/"
+            // src="https://sprodm.uni247.xyz/#/"
           ></iframe>
         </div>
         <div className="w-[400px] h-full">
           <iframe
             title="Inline Frame Example"
-            src="https://sprodm.uni247.xyz/#/"
+            // src="https://sprodm.uni247.xyz/#/"
             width="400px"
             height="100%"
             style={{
