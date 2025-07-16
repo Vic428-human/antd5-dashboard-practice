@@ -29,7 +29,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex flex-col max-h-auto bg-brand-dark">
+    <div className="flex flex-col max-h-auto h-[100vh]">
       <div className="flex flex-wrap items-center justify-start gap-2 bg-content-container">
         {settingList.map((item, index) => (
           <div
@@ -58,8 +58,8 @@ const Home = () => {
       </div>
 
       {/* <ColorPicker onSelect={handleColorChange} /> */}
-      <div className="flex flex-col items-center text-center justify-center bg-red-50 h-[180px] p-">
-        <div className="flex flex-col items-center justify-center w-[50%] h-[230px] bg-slate-950 ">
+      <div className="flex flex-col items-center text-center justify-center h-[180px]">
+        <div className="flex flex-col items-center justify-center w-[50%] h-[230px] ">
           {/* color picker */}
           <div className="h-[45%] w-[70%] bg-content-container">
             <div className="m-2 p-8 bg-white h-20px">123</div>
@@ -75,9 +75,29 @@ const Home = () => {
         </div>
       </div>
       {/* js */}
-      <div className=" flex items-center text-center justify-center bg-blue-50 h-[400px] p-2 space-x-1">
-        <div className="flex-1 bg-slate-500 h-full">Pc web</div>
-        <div className="w-[400px] bg-slate-700 h-full">Mobile</div>
+      <div className=" flex items-center text-center justify-center h-[100%] p-2 space-x-1">
+        <div className="flex-1  h-full">
+          <iframe
+            id="inlineFrameExample"
+            title="Inline Frame Example"
+            width="100%"
+            height="100%"
+            src="https://sprodm.uni247.xyz/#/"
+          ></iframe>
+        </div>
+        <div className="w-[400px] bg-slate-700 h-full">
+          <iframe
+            title="Inline Frame Example"
+            src="https://sprodm.uni247.xyz/#/"
+            width="400px"
+            height="100%"
+            style={{
+              scrollbarWidth: "none", // Firefox
+              msOverflowStyle: "none", // IE & Edge
+              overflow: "hidden",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
