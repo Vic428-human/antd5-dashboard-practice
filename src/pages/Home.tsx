@@ -34,7 +34,7 @@ const Home = () => {
         {settingList.map((item, index) => (
           <div
             key={index}
-            className=" min-width-[200px] rounded-md shadow-lg overflow-hidden text-white"
+            className="min-width-[200px] rounded-md shadow-lg overflow-hidden text-white"
           >
             <div className="bg-yellow-400 text-center py-2 font-semibold text-zinc-900">
               {item}
@@ -58,22 +58,24 @@ const Home = () => {
       </div>
 
       {/* <ColorPicker onSelect={handleColorChange} /> */}
-      <div className="flex flex-col items-center text-center justify-center bg-red-200 h-[300px] p-2">
+      <div className="flex flex-col items-center text-center justify-center bg-red-50 h-[180px] p-">
         <div className="flex flex-col items-center justify-center w-[50%] h-[230px] bg-slate-950 ">
           {/* color picker */}
-          <div className="h-[70%] w-[70%] bg-slate-100">132</div>
-          <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-green-500 ">
-            <div className="flex w-[25%] items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full">
+          <div className="h-[45%] w-[70%] bg-content-container">
+            <div className="m-2 p-8 bg-white h-20px">123</div>
+          </div>
+          <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container pt-6">
+            <div className="flex items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]">
               button1
             </div>
-            <div className="flex w-[25%] items-center justify-center bg-gray-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full">
+            <div className="flex w-[25%] items-center justify-center bg-gray-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]">
               button2
             </div>
           </div>
         </div>
       </div>
       {/* js */}
-      <div className=" flex items-center text-center justify-center bg-blue-50 h-[300px] p-2 space-x-1">
+      <div className=" flex items-center text-center justify-center bg-blue-50 h-[400px] p-2 space-x-1">
         <div className="flex-1 bg-slate-500 h-full">Pc web</div>
         <div className="w-[400px] bg-slate-700 h-full">Mobile</div>
       </div>

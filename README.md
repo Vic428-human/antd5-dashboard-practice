@@ -3,6 +3,10 @@
 > 後台 基於 React + TypeScript + Vite + antd v5 + tailwindcss v4 + nodejs + mongodb + TanStack Query + redux toolkit
 > 該項目已於 2025/0623 開始製作，預計會使用 redux toolkit 但尚未引入
 
+### 7/16 ~ 7/18 目標
+
+1.
+
 ### 目前專案進度
 
 #### 後端功能:
