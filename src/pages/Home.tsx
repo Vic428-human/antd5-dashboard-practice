@@ -15,36 +15,65 @@ const Home = () => {
   const handleColorChange = (color) => {
     console.log("Selected Color:", color);
   };
+  const settingList = [
+    "Template",
+    "Template2",
+    "Template3",
+    "Template4",
+    "Template5",
+    "Template",
+    "Template2",
+    "Template3",
+    "Template4",
+    "Template5",
+  ];
+
   return (
-    <div className="flex flex-col max-h-auto bg-[#302200] mx-10">
-      <div className="grid grid-cols-1 gap-4 p-8 sm:grid-cols-2 md:grid-cols-5 xl:grid-cols-7">
-        <div className=" min-h-40 w-72 rounded-xl overflow-hidden shadow p-4">
+    <div className="flex flex-col max-h-auto bg-brand-dark">
+      <div className="flex flex-wrap items-center justify-start gap-2 bg-blue-500">
+        {settingList.map((item, index) => (
           <div
-            className="text-center bg-[#8A4F0E] text-white text-lg font-semibold mb-3"
-            style={{
-              borderTopLeftRadius: "16px",
-              borderTopRightRadius: "16px",
-            }}
+            key={index}
+            className=" min-width-[200px] rounded-md shadow-lg overflow-hidden text-white"
           >
-            Template
+            <div className="bg-yellow-400 text-center py-2 font-semibold text-zinc-900">
+              {item}
+            </div>
+
+            <div className="bg-zinc-800 p-4 flex items-center justify-center">
+              <div className="flex items-center gap-3">
+                <Switch
+                  checkedChildren="ON"
+                  unCheckedChildren="OFF"
+                  checked={checked}
+                  onChange={handleChange}
+                />
+                <span className="font-medium">
+                  {checked ? "Lucky Exchange" : "DSADSADAS"}
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-6">
-            <div className="flex items-center justify-center scale-150">
-              <Switch
-                checkedChildren="ON"
-                unCheckedChildren="OFF"
-                checked={checked}
-                onChange={handleChange}
-                // style={{ transform: "scale(1.5)" }}
-              />
-            </div>
-            <div className="text-base">
-              {checked ? "Lucky Exchange" : "DSADSADAS"}
-            </div>
+        ))}
+      </div>
+
+      {/* <ColorPicker onSelect={handleColorChange} /> */}
+      <div className="flex flex-col items-center text-center justify-center bg-red-200 h-[300px] p-2">
+        <div className="bg-white w-[50%] h-[120px]">color picker</div>
+        <div className="flex space-x-20 w-[50%]">
+          <div className="flex flex-1 items-center justify-center bg-white h-8 cursor-pointer">
+            button1
+          </div>
+          <div className="flex flex-1 items-center justify-center  bg-white h-8 cursor-pointer">
+            button2
           </div>
         </div>
       </div>
-      <ColorPicker onSelect={handleColorChange} />
+      {/* js */}
+      <div className=" flex items-center text-center justify-center bg-blue-50 h-[300px] p-2 space-x-1">
+        <div className="flex-1 bg-slate-500 h-full">Pc web</div>
+        <div className="w-[400px] bg-slate-700 h-full">Mobile</div>
+      </div>
     </div>
   );
 };
