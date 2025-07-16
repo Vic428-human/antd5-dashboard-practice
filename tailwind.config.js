@@ -7,7 +7,7 @@ export default {
         "brand-dark": "#302200",
         "brand-accent": "#ffb80c",
         "brand-text": "#272221",
-        containers: "#000000",
+        "content-container": "#000000",
       },
       screens: {
         sm: "600px",

@@ -30,7 +30,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col max-h-auto bg-brand-dark">
-      <div className="flex flex-wrap items-center justify-start gap-2 bg-blue-500">
+      <div className="flex flex-wrap items-center justify-start gap-2 bg-content-container">
         {settingList.map((item, index) => (
           <div
             key={index}
@@ -59,13 +59,16 @@ const Home = () => {
 
       {/* <ColorPicker onSelect={handleColorChange} /> */}
       <div className="flex flex-col items-center text-center justify-center bg-red-200 h-[300px] p-2">
-        <div className="bg-white w-[50%] h-[120px]">color picker</div>
-        <div className="flex space-x-20 w-[50%]">
-          <div className="flex flex-1 items-center justify-center bg-white h-8 cursor-pointer">
-            button1
-          </div>
-          <div className="flex flex-1 items-center justify-center  bg-white h-8 cursor-pointer">
-            button2
+        <div className="flex flex-col items-center justify-center w-[50%] h-[230px] bg-slate-950 ">
+          {/* color picker */}
+          <div className="h-[70%] w-[70%] bg-slate-100">132</div>
+          <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-green-500 ">
+            <div className="flex w-[25%] items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full">
+              button1
+            </div>
+            <div className="flex w-[25%] items-center justify-center bg-gray-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full">
+              button2
+            </div>
           </div>
         </div>
       </div>

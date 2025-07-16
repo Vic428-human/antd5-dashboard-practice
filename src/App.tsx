@@ -30,7 +30,7 @@ function App() {
             </div>
           </div>
         </>
-        <Content className="bg-containers" style={{ margin: "" }}>
+        <Content className="bg-content-container" style={{ margin: "" }}>
           <div>
             {/* 不同路由會在這裡切換 */}
             <MainContent />
