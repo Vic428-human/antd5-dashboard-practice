@@ -1,13 +1,101 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets.ts";
-import ColorPicker from "../components/ColorPicker.tsx";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { Space, Switch } from "antd";
-
-const COLOR_LIST = ["#7A5C5C", "#3EBE9F"];
+import { Switch } from "antd";
+import { SketchPicker } from "react-color";
 
 const Home = () => {
   const [checked, setChecked] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const colorBlocks = [
+    // 第一個色塊 - 橙色/黑色
+    {
+      topColor: "bg-orange-400",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第二個色塊 - 青綠色/黑色 + 勾選
+    {
+      topColor: "bg-teal-400",
+      bottomColor: "bg-black",
+    },
+    // 第三個色塊 - 藍色/黑色
+    {
+      topColor: "bg-blue-500",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第四個色塊 - 綠色/黑色
+    {
+      topColor: "bg-green-500",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第五個色塊 - 橙紅色/黑色
+    {
+      topColor: "bg-orange-600",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第六個色塊 - 紫色/黑色
+    {
+      topColor: "bg-purple-400",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第七個色塊 - 綠色/黑色
+    {
+      topColor: "bg-green-600",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第八個色塊 - 淺紫色/灰色
+    {
+      topColor: "bg-purple-300",
+      bottomColor: "bg-gray-300",
+      icon: null,
+    },
+    // 第九個色塊 - 黃色/深紫色
+    {
+      topColor: "bg-yellow-400",
+      bottomColor: "bg-purple-900",
+      icon: null,
+    },
+    // 第十個色塊 - 紅色/黑色
+    {
+      topColor: "bg-red-500",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第十一個色塊 - 紅色/白色
+    {
+      topColor: "bg-red-400",
+      bottomColor: "bg-white",
+      icon: null,
+    },
+    // 第十二個色塊 - 青綠色/黑色
+    {
+      topColor: "bg-teal-500",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第十三個色塊 - 深藍色/白色
+    {
+      topColor: "bg-blue-900",
+      bottomColor: "bg-white",
+      icon: null,
+    },
+    // 第十四個色塊 - 黃色/黑色
+    {
+      topColor: "bg-yellow-500",
+      bottomColor: "bg-black",
+      icon: null,
+    },
+    // 第十五個色塊 - 橙色/黑色 + 調色盤圖示
+    {
+      topColor: "bg-orange-500",
+      bottomColor: "bg-black",
+    },
+  ];
 
   const handleChange = (checked) => {
     setChecked(checked);
@@ -58,11 +146,50 @@ const Home = () => {
       </div>
 
       {/* <ColorPicker onSelect={handleColorChange} /> */}
-      <div className="flex flex-col items-center text-center justify-center h-[180px]">
-        <div className="flex flex-col items-center justify-center w-[50%] h-[230px] ">
+      <div className="flex flex-col items-center text-center justify-center">
+        <div className="flex flex-col items-center justify-center w-[50%]">
           {/* color picker */}
-          <div className="h-[45%] w-[70%] bg-content-container">
-            <div className="m-2 p-8 bg-white h-20px">123</div>
+          <div className="bg-content-container">
+            <div className="m-2 p-8 h-20px">
+              <div className="flex gap-2 p-6 bg-gray-50 ">
+                {/* <div className="flex flex-col items-center justify-center">
+                  <div>123</div>
+                  <div>123</div>
+                </div> */}
+                <div className="flex gap-2 ">
+                  <div className="flex flex-col justify-around ">
+                    <div className="">Primary</div>
+                    <div className="">Secondary</div>
+                  </div>
+
+                  {colorBlocks.map((block, index) => (
+                    <div
+                      key={index}
+                      onClick={() => setSelectedIndex(index)}
+                      className={`w-12 h-auto rounded cursor-pointer hover:scale-105 transition-transform duration-200 shadow-sm 
+            border-2 border-solid ${
+              selectedIndex === index ? "border-red-400" : "border-black/30"
+            }`}
+                    >
+                      {/* 上半部分 */}
+                      <div
+                        className={`flex items-center justify-center text-center ${block.topColor} h-6 w-full relative`}
+                      >
+                        {block.icon}
+                      </div>
+                      {/* 下半部分 */}
+                      <div className={`${block.bottomColor} h-6 w-full`}>
+                        {block.icon2}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* <div className="flex flex-wrap gap-2 p-6 bg-gray-50 rounded-lg"></div> */}
+            </div>
+            <div className="absolute top-0 right-0 z-50">
+              {/* <SketchPicker /> */}
+            </div>
           </div>
           <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container pt-6">
             <div className="flex items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]">
@@ -76,7 +203,7 @@ const Home = () => {
       </div>
       {/* js */}
       <div className=" flex items-center text-center justify-center h-[100%] p-2 space-x-1">
-        <div className="flex-1  h-full">
+        <div className="flex-1 h-full">
           <iframe
             id="inlineFrameExample"
             title="Inline Frame Example"
@@ -85,7 +212,7 @@ const Home = () => {
             src="https://sprodm.uni247.xyz/#/"
           ></iframe>
         </div>
-        <div className="w-[400px] bg-slate-700 h-full">
+        <div className="w-[400px] h-full">
           <iframe
             title="Inline Frame Example"
             src="https://sprodm.uni247.xyz/#/"
