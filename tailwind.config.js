@@ -3,6 +3,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "brand-dark": "#302200",
+        "brand-accent": "#ffb80c",
+        "brand-text": "#272221",
+        containers: "#000000",
+      },
       screens: {
         sm: "600px",
         md: "768px",
