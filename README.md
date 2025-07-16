@@ -68,8 +68,11 @@ npm create vite@latest my-app -- --template react-ts
 
 ### 備份
 
-````
+### 菜單本體
 
+> 這版不需要用到 先隱藏
+
+```
       {/* <Sider
         trigger={null}
         collapsible
@@ -89,11 +92,12 @@ npm create vite@latest my-app -- --template react-ts
         </div>
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider> */}
-
 ```
 
-### 漢堡ICON
+### 漢堡 ICON
+
 > 菜單在這板不存在，但未來或許會用到
+
 ```
    <div>
             {/* <Button
@@ -106,9 +110,10 @@ npm create vite@latest my-app -- --template react-ts
 
 ```
 
-
 ### 原先 Swithc btn 切版
-> 但7/16跟UIUX討論後，改用antd的switch btn
+
+> 但 7/16 跟 UIUX 討論後，改用 antd 的 switch btn
+
 ```
 import React from "react";
 import { assets } from "../assets/assets.ts";
@@ -149,4 +154,3 @@ const LuckyExchangeButton = ({ isActive = false, children = "" }) => {
 
 export default LuckyExchangeButton;
 ```
-````
