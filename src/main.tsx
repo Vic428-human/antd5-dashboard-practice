@@ -7,7 +7,7 @@
 // 不再支持 babel-plugin-import，CSS-in-JS 本身具有按需加载的能力，不再需要插件支持
 // https://ant.design/docs/react/migration-v5-cn
 // import "antd/dist/reset.css"; // 引入 Ant Design 的重置样式  antd 规范样式
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Switch } from "antd";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
@@ -24,8 +24,16 @@ createRoot(document.getElementById("root")!).render(
       {/* https://ant.design/docs/react/customize-theme#seed-token */}
       <ConfigProvider
         theme={{
-          token: {
-            colorPrimary: "#ff0000",
+          // token: {
+          //   colorPrimary: "#fcba03",
+          // },
+          components: {
+            Switch: {
+              colorPrimary: "#42D21E", // 開啟顏色
+              colorPrimaryHover: "#6ECF4B", // 自訂 hover 顏色（稍亮一點的綠色）
+              handleBg: "#fff", // 把手顏色
+              handleShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            },
           },
         }}
       >
