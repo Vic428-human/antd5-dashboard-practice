@@ -1,7 +1,11 @@
-import React from "react";
+import { ComponentProps } from "react";
 
-const index = () => {
-  return <div className="text-blue-500">index</div>;
+type ButtonProps = ComponentProps<"button">;
+
+export const Button = ({ ...props }: ButtonProps) => {
+  return (
+    <button className="text-blue-500" {...props}>
+      按鈕
+    </button>
+  );
 };
-
-export default index;
