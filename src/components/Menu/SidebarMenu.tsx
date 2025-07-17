@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "antd";
+import { Divider, Menu } from "antd";
 import type { MenuProps } from "antd";
 import {
   UserOutlined,
@@ -24,7 +24,6 @@ function getItem(
     label,
   } as MenuItem;
 }
-
 const items: MenuItem[] = [
   getItem("首頁", "/", <AssetIcon name="person_icon" alt="首頁" />),
   getItem(
@@ -40,7 +39,13 @@ const items: MenuItem[] = [
     getItem("Team 1", "6"),
     getItem("Team 2", "8"),
   ]),
-  getItem("登入", "/login", <FileOutlined />),
+  getItem(
+    "登入",
+    "/login",
+    <>
+      <div>1532</div>
+    </>
+  ),
 ];
 
 interface SidebarMenuProps {
