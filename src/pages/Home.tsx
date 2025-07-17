@@ -4,9 +4,83 @@ import { Switch } from "antd";
 import { SketchPicker } from "react-color";
 
 const initialSettings = [
-  { label: "選項 A", checked: true, a: "附加資訊 A", b: "備註 A" },
-  { label: "選項 B", checked: false, a: "附加資訊 B", b: "備註 B" },
-  { label: "選項 C", checked: true, a: "附加資訊 C", b: "備註 C" },
+  {
+    label: "Template",
+    checked: true,
+    a: "Lucky Exchange",
+    b: "Lucky Sport",
+    btn: false,
+  },
+  {
+    label: "Sports Priority",
+    checked: false,
+    a: "Cricket First",
+    b: "Soccer First",
+    btn: false,
+  },
+  {
+    label: "Template",
+    checked: true,
+    a: "Lucky Exchange",
+    b: "Lucky Sport",
+    btn: false,
+  },
+  {
+    label: "Sports Priority",
+    checked: false,
+    a: "Cricket First",
+    b: "Soccer First",
+    btn: false,
+  },
+  {
+    label: "Template",
+    checked: true,
+    a: "Lucky Exchange",
+    b: "Lucky Sport",
+    btn: false,
+  },
+  {
+    label: "Sports Priority",
+    checked: false,
+    a: "Cricket First",
+    b: "Soccer First",
+    btn: false,
+  },
+  {
+    label: "Template",
+    checked: true,
+    a: "Lucky Exchange",
+    b: "Lucky Sport",
+    btn: false,
+  },
+  {
+    label: "Sports Priority",
+    checked: false,
+    a: "Cricket First",
+    b: "Soccer First",
+    btn: false,
+  },
+  {
+    label: "Template",
+    checked: true,
+    a: "Lucky Exchange",
+    b: "Lucky Sport",
+    btn: false,
+  },
+  {
+    label: "Sports Priority",
+    checked: false,
+    a: "Cricket First",
+    b: "Soccer First",
+    btn: false,
+  },
+  {
+    label: "Sports Categories",
+    checked: false,
+    a: "Categories",
+    b: "",
+    btn: true,
+  },
 ];
 const Home = () => {
   const [settingList, setSettingList] = useState(initialSettings);
@@ -119,7 +193,7 @@ const Home = () => {
         {settingList.map((item, index) => (
           <div
             key={index}
-            className="min-w-[200px] rounded-md shadow-lg overflow-hidden text-white"
+            className="min-w-[220px] max-h-[40&] rounded-md shadow-lg overflow-hidden text-white"
           >
             <div className="bg-yellow-400 text-center py-2 font-semibold text-zinc-900">
               {item.label}
@@ -127,15 +201,25 @@ const Home = () => {
 
             <div className="bg-zinc-800 p-4 flex flex-col gap-3 items-center justify-center">
               <div className="flex items-center gap-3">
-                <Switch
-                  checkedChildren="ON"
-                  unCheckedChildren="OFF"
-                  checked={item.checked}
-                  onChange={(checked) => handleChange(checked, index)}
-                />
-                <span className="font-medium">
-                  {item.checked ? item.a : item.b}
-                </span>
+                {!item.btn ? (
+                  <div className="flex items-center justify-center space-x-1 ">
+                    <Switch
+                      checkedChildren="ON"
+                      unCheckedChildren="OFF"
+                      checked={item.checked}
+                      onChange={(checked) => handleChange(checked, index)}
+                    />
+                    <span className="font-medium">
+                      {item.checked ? item.a : item.b}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center space-x-1">
+                    <div className="flex items-center justify-center bg-yellow-500 cursor-pointer text-black px-12 py-1 rounded-full">
+                      {item.a}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -183,7 +267,7 @@ const Home = () => {
               {/* <div className="flex flex-wrap gap-2 p-6 bg-gray-50 rounded-lg"></div> */}
             </div>
             <div className="absolute top-0 right-0 z-50">
-              <SketchPicker />
+              {/* <SketchPicker /> */}
             </div>
           </div>
           <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container pt-6">
