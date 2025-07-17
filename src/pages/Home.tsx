@@ -147,12 +147,6 @@ const Home = () => {
     },
   ];
 
-  // const nonDisplay = () => {
-  //   lsDisplayRef.current?.updateOptions({
-  //     options: { displayPCBanner: false },
-  //   });
-  // };
-
   const isDisplay = (props) => {
     const { title, value } = props;
     const options = {
@@ -308,7 +302,8 @@ const Home = () => {
           {showDesktop ? (
             <LuckySports ref={lsDisplayRef} />
           ) : (
-            <LuckySportsMb ref={lsnonDisplayRef} />
+            // TODO: 手機錨定的時候有些問題。 之後再研究 先專心處理 桌面板的
+            <LuckySports ref={lsDisplayRef} />
           )}
         </div>
       </div>
