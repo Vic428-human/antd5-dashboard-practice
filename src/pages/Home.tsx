@@ -223,12 +223,6 @@ const Home = () => {
     });
   };
 
-  const Display = () => {
-    lsDisplayRef.current?.updateOptions({
-      options: { displayPCBanner: true },
-    });
-  };
-
   const handleChange = (checked: boolean, index: number) => {
     const newList = [...settingList];
     newList[index] = { ...newList[index], checked };
