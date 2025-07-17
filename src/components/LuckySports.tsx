@@ -1,19 +1,18 @@
-import { useRef, useEffect } from "react";
+import { useEffect, forwardRef } from "react";
 import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
 // /https://widget-dev-v3/mock/LuckySports.es.js
 
-const LuckySports = () => {
-  const lsRef = useRef<LuckySportsInstance | null>(null);
-
+const LuckySports = forwardRef((props, ref: any) => {
   useEffect(() => {
     (async () => {
       const LuckySports = (
         await import("https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js")
       ).default as { new (): LuckySportsInstance };
-      if (lsRef.current) return;
+
+      if (ref?.current) return;
 
       // Replace your customized LuckySports init
-      lsRef.current = new LuckySports().init({
+      ref.current = new LuckySports().init({
         target: document.getElementById("sport-root"),
         token:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRhMWU5ZDgtMWUxZS00NGMzLTkxNmMtNTgxOGQyYmU0YmRhIiwicGxheWVyX2lkIjoiY2tleF90ZXN0X3BsYXllcjEiLCJtZXJjaGFudF9jb2RlIjoiYmFja29mZmljZS1kOWUzMiIsImlzc3VlZF9hdCI6IjIwMjMtMDItMTBUMDg6NTc6MjkuOTExNzA3NDE1WiIsImV4cGlyZXNfYXQiOiIyMDMwLTAyLTEwVDAwOjAwOjAwLjAwMDAwMDYzNFoiLCJsYW5ndWFnZSI6ImVuIn0.1HzNrrIGrETdgTpANw6IAh2ZNvpr4sG0-n7jnPIIlnw",
@@ -25,7 +24,8 @@ const LuckySports = () => {
 
     // cleanup function
     return () => {
-      lsRef.current?.kill();
+      if (ref?.current) return;
+      ref.current?.kill();
     };
   }, []);
 
@@ -39,6 +39,6 @@ const LuckySports = () => {
       <div id="sport-root"></div>
     </div>
   );
-};
+});
 
 export default LuckySports;

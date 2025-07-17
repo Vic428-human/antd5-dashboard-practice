@@ -43,7 +43,9 @@ function App() {
           </div>
         </div>
         <div className="demo-logo-vertical">
-          <h1 className="text-red-500">配置區域</h1>
+          <h1 className="text-red-500">
+            這邊之後有可能會放toggle跟色塊設定直列在這
+          </h1>
         </div>
         {/* <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} /> */}
       </Sider>

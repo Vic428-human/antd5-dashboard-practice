@@ -1,11 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { assets } from "../assets/assets.ts";
 import { Switch } from "antd";
 import { SketchPicker } from "react-color";
 import LuckySports from "../components/LuckySports.tsx";
 import LuckySportsMb from "../components/LuckySportsMb.tsx";
+import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
 
 const initialSettings = [
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
+  {
+    title: "Template",
+    checked: true,
+    onText: "Lucky Exchange",
+    offText: "Lucky Sport",
+    btn: false,
+    btnText: "",
+  },
   {
     title: "Template",
     checked: true,
@@ -32,6 +97,8 @@ const initialSettings = [
   },
 ];
 const Home = () => {
+  const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
+  const lsnonDisplayRef = useRef<LuckySportsInstance | null>(null);
   const [settingList, setSettingList] = useState(initialSettings);
   const [showDesktop, setShowDesktop] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -143,12 +210,30 @@ const Home = () => {
     },
   ];
 
+  // const nonDisplay = () => {
+  //   lsDisplayRef.current?.updateOptions({
+  //     options: { displayPCBanner: false },
+  //   });
+  // };
+
+  const isDisplay = (props) => {
+    const { displayPCBanner } = props;
+    lsDisplayRef.current?.updateOptions({
+      options: { displayPCBanner },
+    });
+  };
+
+  const Display = () => {
+    lsDisplayRef.current?.updateOptions({
+      options: { displayPCBanner: true },
+    });
+  };
+
   const handleChange = (checked: boolean, index: number) => {
     const newList = [...settingList];
     newList[index] = { ...newList[index], checked };
     setSettingList(newList);
   };
-  console.log({ settingList });
   return (
     <div className="flex flex-col max-h-auto mt-2">
       <div className="flex flex-wrap justify-start gap-2 bg-content-container">
@@ -235,18 +320,27 @@ const Home = () => {
           </div>
           <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container mb-1">
             <div
-              onClick={() => setShowDesktop(!showDesktop)}
+              onClick={() => {
+                isDisplay({ displayPCBanner: false });
+              }}
               className="flex items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]"
             >
-              button1
+              nonDisplay
             </div>
-            <div className="flex w-[25%] items-center justify-center bg-gray-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]">
-              button2
+            <div
+              onClick={() => {
+                isDisplay({ displayPCBanner: true });
+              }}
+              className="flex w-[25%] items-center justify-center bg-gray-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]"
+            >
+              Display
             </div>
           </div>
           <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container">
             <div
-              onClick={() => setShowDesktop(true)} // 點 button1 顯示 Desktop
+              onClick={() => {
+                setShowDesktop(true);
+              }} // 點 button1 顯示 Desktop
               className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%] ${
                 showDesktop ? "bg-yellow-500" : "bg-gray-500"
               }`}
@@ -272,7 +366,11 @@ const Home = () => {
             showDesktop ? "w-full" : "w-[375px]"
           }`}
         >
-          {showDesktop ? <LuckySports /> : <LuckySportsMb />}
+          {showDesktop ? (
+            <LuckySports ref={lsDisplayRef} />
+          ) : (
+            <LuckySportsMb ref={lsnonDisplayRef} />
+          )}
         </div>
       </div>
     </div>
