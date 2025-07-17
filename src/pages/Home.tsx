@@ -193,7 +193,7 @@ const Home = () => {
         {settingList.map((item, index) => (
           <div
             key={index}
-            className="min-w-[220px] max-h-[40&] rounded-md shadow-lg overflow-hidden text-white"
+            className="min-w-[220px] max-h-[40&] shadow-lg overflow-hidden text-white"
           >
             <div className="bg-yellow-400 text-center py-2 font-semibold text-zinc-900">
               {item.label}
