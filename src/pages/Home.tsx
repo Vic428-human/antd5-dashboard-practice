@@ -8,79 +8,16 @@ import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/Lu
 
 const initialSettings = [
   {
-    title: "Template",
+    title: "displayPCBanner",
     checked: true,
     onText: "Lucky Exchange",
     offText: "Lucky Sport",
     btn: false,
     btnText: "",
   },
+
   {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Template",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
-  },
-  {
-    title: "Sports Priority",
+    title: "displayPCScoreboard",
     checked: false,
     onText: "Cricket First",
     offText: "Soccer First",
@@ -217,9 +154,13 @@ const Home = () => {
   // };
 
   const isDisplay = (props) => {
-    const { displayPCBanner } = props;
+    const { title, value } = props;
+    const options = {
+      [title]: value,
+    };
+    console.log("====>options", options);
     lsDisplayRef.current?.updateOptions({
-      options: { displayPCBanner },
+      options: options,
     });
   };
 
@@ -249,7 +190,10 @@ const Home = () => {
                       checkedChildren="ON"
                       unCheckedChildren="OFF"
                       checked={item.checked}
-                      onChange={(checked) => handleChange(checked, index)}
+                      onChange={(checked) => {
+                        handleChange(checked, index);
+                        isDisplay({ title: item.title, value: checked });
+                      }}
                     />
                     <span className="font-medium">
                       {item.checked ? item.onText : item.offText}
@@ -360,6 +304,7 @@ const Home = () => {
             showDesktop ? "w-full" : "w-[375px]"
           }`}
         >
+          {/* <LuckySports ref={lsDisplayRef} /> */}
           {showDesktop ? (
             <LuckySports ref={lsDisplayRef} />
           ) : (
