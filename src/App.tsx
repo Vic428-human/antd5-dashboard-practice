@@ -20,7 +20,7 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   return (
-    <Layout className="h-screen w-screen" style={{ margin: "" }}>
+    <Layout className=" w-screen" style={{ margin: "" }}>
       <Sider
         trigger={null}
         collapsible
@@ -39,7 +39,7 @@ function App() {
         }}
       >
         <div
-          className="text-white h-[30px] w-[30px] bg-red-600 flex items-center justify-center absolute top-1/2 right-[-40px]"
+          className="text-white h-[30px] w-[30px] bg-red-600 flex items-center justify-center absolute top-[600px] right-[-40px] z-[1000]"
           onClick={() => setCollapsed(!collapsed)}
         >
           <div

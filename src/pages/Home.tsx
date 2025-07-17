@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { assets } from "../assets/assets.ts";
 import { Switch } from "antd";
 import { SketchPicker } from "react-color";
+import LuckySports from "../components/LuckySports.tsx";
+import LuckySportsMb from "../components/LuckySportsMb.tsx";
 
 const initialSettings = [
   {
@@ -152,7 +154,7 @@ const Home = () => {
   };
   console.log({ settingList });
   return (
-    <div className="flex flex-col max-h-auto h-[100vh] mt-2">
+    <div className="flex flex-col max-h-auto mt-2">
       <div className="flex flex-wrap justify-start gap-2 bg-content-container">
         {settingList.map((item, index) => (
           <div
@@ -245,19 +247,28 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       {/* js */}
-      <div className=" flex items-center text-center justify-center h-[100%] p-2 space-x-1">
-        <div className="flex-1 h-full">
-          <iframe
+      <div className="flex items-center text-center justify-center h-[100%] p-2 space-x-1">
+        <div
+          className="relative w-[100% - 375px] h-[600px] overflow-auto"
+          style={{ width: "calc(100% - 375px" }}
+        >
+          {/* <iframe
             id="inlineFrameExample"
             title="Inline Frame Example"
             width="100%"
             height="100%"
             // src="https://sprodm.uni247.xyz/#/"
-          ></iframe>
+          >
+          
+          </iframe> */}
+          <LuckySports />
         </div>
-        <div className="w-[400px] h-full">
-          <iframe
+        <div className="w-[375px] h-[600px] overflow-auto">
+          <LuckySportsMb />
+
+          {/* <iframe
             title="Inline Frame Example"
             // src="https://sprodm.uni247.xyz/#/"
             width="400px"
@@ -267,7 +278,7 @@ const Home = () => {
               msOverflowStyle: "none", // IE & Edge
               overflow: "hidden",
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>
