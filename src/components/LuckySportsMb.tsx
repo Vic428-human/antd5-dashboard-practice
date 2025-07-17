@@ -14,7 +14,7 @@ const LuckySportsMb = () => {
 
       // Replace your customized LuckySports init
       lsRef.current = new LuckySports().init({
-        target: document.getElementById("sport-root-2"),
+        target: document.getElementById("sport-root"),
         token:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRhMWU5ZDgtMWUxZS00NGMzLTkxNmMtNTgxOGQyYmU0YmRhIiwicGxheWVyX2lkIjoiY2tleF90ZXN0X3BsYXllcjEiLCJtZXJjaGFudF9jb2RlIjoiYmFja29mZmljZS1kOWUzMiIsImlzc3VlZF9hdCI6IjIwMjMtMDItMTBUMDg6NTc6MjkuOTExNzA3NDE1WiIsImV4cGlyZXNfYXQiOiIyMDMwLTAyLTEwVDAwOjAwOjAwLjAwMDAwMDYzNFoiLCJsYW5ndWFnZSI6ImVuIn0.1HzNrrIGrETdgTpANw6IAh2ZNvpr4sG0-n7jnPIIlnw",
         // theme: { {/** theme settings */} },
@@ -37,7 +37,7 @@ const LuckySportsMb = () => {
         href="https://widget-dev-v3.ckex.xyz/mock/style.css"
         crossOrigin="anonymous"
       />
-      <div id="sport-root-2"></div>
+      <div id="sport-root"></div>
     </div>
   );
 };

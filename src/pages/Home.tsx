@@ -33,11 +33,7 @@ const initialSettings = [
 ];
 const Home = () => {
   const [settingList, setSettingList] = useState(initialSettings);
-  const [checked, setChecked] = useState({
-    switch1: false,
-    switch2: false,
-    // add more switches as needed
-  });
+  const [showDesktop, setShowDesktop] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const colorBlocks = [
     // 第一個色塊 - 橙色/黑色
@@ -238,7 +234,10 @@ const Home = () => {
             </div>
           </div>
           <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container pt-6">
-            <div className="flex items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]">
+            <div
+              onClick={() => setShowDesktop(!showDesktop)}
+              className="flex items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]"
+            >
               button1
             </div>
             <div className="flex w-[25%] items-center justify-center bg-gray-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]">
@@ -248,37 +247,29 @@ const Home = () => {
         </div>
       </div>
 
-      {/* js */}
-      <div className="flex items-center text-center justify-center h-[100%] p-2 space-x-1">
-        <div
-          className="relative w-[100% - 375px] h-[600px] overflow-auto"
-          style={{ width: "calc(100% - 375px" }}
-        >
-          {/* <iframe
-            id="inlineFrameExample"
-            title="Inline Frame Example"
-            width="100%"
-            height="100%"
-            // src="https://sprodm.uni247.xyz/#/"
+      <div className="flex items-center justify-center h-full p-2 space-x-1 text-center relative">
+        <div className="relative w-full h-[600px] flex">
+          {/* Desktop */}
+          <div
+            className={`transition-all duration-300 ease-in-out ${
+              showDesktop
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-95 pointer-events-none"
+            } w-[calc(100%-375px)] overflow-auto`}
           >
-          
-          </iframe> */}
-          <LuckySports />
-        </div>
-        <div className="w-[375px] h-[600px] overflow-auto">
-          <LuckySportsMb />
+            {showDesktop && <LuckySports />}
+          </div>
 
-          {/* <iframe
-            title="Inline Frame Example"
-            // src="https://sprodm.uni247.xyz/#/"
-            width="400px"
-            height="100%"
-            style={{
-              scrollbarWidth: "none", // Firefox
-              msOverflowStyle: "none", // IE & Edge
-              overflow: "hidden",
-            }}
-          /> */}
+          {/* Mobile */}
+          <div
+            className={`transition-all duration-300 ease-in-out ${
+              !showDesktop
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-95 pointer-events-none"
+            } w-[375px] overflow-auto`}
+          >
+            {!showDesktop && <LuckySportsMb />}
+          </div>
         </div>
       </div>
     </div>
