@@ -233,7 +233,7 @@ const Home = () => {
               {/* <SketchPicker /> */}
             </div>
           </div>
-          <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container pt-6">
+          <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container mb-1">
             <div
               onClick={() => setShowDesktop(!showDesktop)}
               className="flex items-center justify-center bg-yellow-500 h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%]"
@@ -244,32 +244,35 @@ const Home = () => {
               button2
             </div>
           </div>
+          <div className="flex items-center justify-center h-[30%] w-[70%] space-x-2 bg-content-container">
+            <div
+              onClick={() => setShowDesktop(true)} // 點 button1 顯示 Desktop
+              className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%] ${
+                showDesktop ? "bg-yellow-500" : "bg-gray-500"
+              }`}
+            >
+              電腦版
+            </div>
+
+            <div
+              onClick={() => setShowDesktop(false)} // 點 button2 顯示 Mobile
+              className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%] ${
+                !showDesktop ? "bg-yellow-500" : "bg-gray-500"
+              }`}
+            >
+              手機板
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="flex items-center justify-center h-full p-2 space-x-1 text-center relative">
-        <div className="relative w-full h-[600px] flex">
-          {/* Desktop */}
-          <div
-            className={`transition-all duration-300 ease-in-out ${
-              showDesktop
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-95 pointer-events-none"
-            } w-[calc(100%-375px)] overflow-auto`}
-          >
-            {showDesktop && <LuckySports />}
-          </div>
-
-          {/* Mobile */}
-          <div
-            className={`transition-all duration-300 ease-in-out ${
-              !showDesktop
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-95 pointer-events-none"
-            } w-[375px] overflow-auto`}
-          >
-            {!showDesktop && <LuckySportsMb />}
-          </div>
+      <div className="flex items-center justify-center h-full p-2 text-center relative">
+        <div
+          className={`relative h-[600px] overflow-auto transition-all duration-300 ease-in-out ${
+            showDesktop ? "w-full" : "w-[375px]"
+          }`}
+        >
+          {showDesktop ? <LuckySports /> : <LuckySportsMb />}
         </div>
       </div>
     </div>
