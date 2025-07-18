@@ -18,7 +18,7 @@ interface AssetIconProps {
 const AssetIcon: React.FC<AssetIconProps> = ({
   name,
   alt,
-  style = { width: 18, height: 18, verticalAlign: "middle" },
+  style = { width: 14, height: 14, verticalAlign: "middle" },
   className,
 }) => {
   const src = assets[name];
