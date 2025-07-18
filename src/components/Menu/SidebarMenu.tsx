@@ -1,12 +1,6 @@
 import React from "react";
-import { Divider, Menu } from "antd";
+import { Menu } from "antd";
 import type { MenuProps } from "antd";
-import {
-  UserOutlined,
-  DesktopOutlined,
-  TeamOutlined,
-  FileOutlined,
-} from "@ant-design/icons";
 import AssetIcon from "./AssetIcon.tsx";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -25,26 +19,20 @@ function getItem(
   } as MenuItem;
 }
 const items: MenuItem[] = [
-  getItem("首頁", "/", <AssetIcon name="person_icon" alt="首頁" />),
   getItem(
-    "驗證菜單",
-    "/verify-menu",
-    <AssetIcon name="mail_icon" alt="測試菜單" />,
-    [
-      getItem("信箱驗證", "/verify-menu/email-verify"),
-      getItem("密碼重置", "/verify-menu/reset-password"),
-    ]
+    "DEVICES",
+    "/devices",
+    <AssetIcon name="person_icon" alt="DEVICES" />
   ),
-  getItem("Team", "/team", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
   getItem(
-    "登入",
-    "/login",
-    <>
-      <div>1532</div>
-    </>
+    "SETTINGS",
+    "/settings",
+    <AssetIcon name="person_icon" alt="SETTINGS" />
+  ),
+  getItem(
+    "STYLING",
+    "/styling",
+    <AssetIcon name="person_icon" alt="STYLING" />
   ),
 ];
 
