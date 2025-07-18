@@ -14,10 +14,12 @@ const LuckySports = forwardRef((props, ref: any) => {
       // Replace your customized LuckySports init
       ref.current = new LuckySports().init({
         target: document.getElementById("sport-root"),
+        width: 1100,
+        height: 800,
         token:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRhMWU5ZDgtMWUxZS00NGMzLTkxNmMtNTgxOGQyYmU0YmRhIiwicGxheWVyX2lkIjoiY2tleF90ZXN0X3BsYXllcjEiLCJtZXJjaGFudF9jb2RlIjoiYmFja29mZmljZS1kOWUzMiIsImlzc3VlZF9hdCI6IjIwMjMtMDItMTBUMDg6NTc6MjkuOTExNzA3NDE1WiIsImV4cGlyZXNfYXQiOiIyMDMwLTAyLTEwVDAwOjAwOjAwLjAwMDAwMDYzNFoiLCJsYW5ndWFnZSI6ImVuIn0.1HzNrrIGrETdgTpANw6IAh2ZNvpr4sG0-n7jnPIIlnw",
         // theme: { {/** theme settings */} },
-        options: { displayHeader: false },
+        options: {},
         // onLogin: () => {{/** login callback */}},
       });
     })();
