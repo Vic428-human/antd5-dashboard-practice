@@ -9,8 +9,8 @@ import { useCountStore } from "../../store/store";
 const { Sider } = Layout;
 
 const ContainerLayout = () => {
-  const count = useCountStore((state) => state.count);
-  console.log({ count });
+  const { isToggled, toggle } = useCountStore();
+
   const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const ContainerLayout = () => {
         >
           <div>
             <span>右邊</span>
-            <p>Count:{count}</p>
+            <h3>切換狀態: {isToggled ? "開啟" : "關閉"}</h3>
           </div>
 
           <LuckySports ref={lsDisplayRef} />

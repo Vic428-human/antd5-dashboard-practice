@@ -5,7 +5,7 @@ import { useCountStore } from "../store/store";
 const { Sider } = Layout;
 
 const Setting = ({ params }) => {
-  const { increase } = useCountStore((state) => state);
+  const { isToggled, toggle } = useCountStore((state) => state);
   const [showDesktop, setShowDesktop] = useState(true);
   const [collapsed, setCollapsed] = useState(false);
   return (
@@ -59,7 +59,9 @@ const Setting = ({ params }) => {
           >
             電腦版
           </div>
-          <div onClick={() => increase(1)}>increase</div>
+          <button onClick={toggle}>
+            {isToggled ? "開啟中 ✅" : "關閉中 ❌"}
+          </button>
         </div>
         <div>
           <span>中間區域:</span>
