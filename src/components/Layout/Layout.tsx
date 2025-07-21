@@ -4,6 +4,7 @@ import { Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import SidebarMenu from "../Menu/SidebarMenu";
 import LuckySports from "../../components/LuckySports.tsx";
+import LuckySportsMb from "../../components/LuckySportsMb.tsx";
 import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
 import { useCountStore } from "../../store/store";
 const { Sider } = Layout;
@@ -12,6 +13,7 @@ const ContainerLayout = () => {
   const { isToggled, toggle } = useCountStore();
 
   const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
+  const npnDisplayRef = useRef<LuckySportsInstance | null>(null);
   const navigate = useNavigate();
 
   const isDisplay = (props) => {
@@ -43,7 +45,6 @@ const ContainerLayout = () => {
         }}
       >
         <div className="demo-logo-vertical"></div>
-        <div></div>
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>
       {/* demo   */}
@@ -51,7 +52,7 @@ const ContainerLayout = () => {
       <div className="flex items-center justify-center w-[100%] p-2 text-center relative">
         <div
           className={`relative h-[90%] w-[1100px] overflow-auto transition-all duration-300 ease-in-out ${
-            true ? "w-full" : "w-[375px]"
+            isToggled ? "w-full" : "w-[375px]"
           }`}
         >
           <div>
@@ -59,7 +60,12 @@ const ContainerLayout = () => {
             <h3>切換狀態: {isToggled ? "開啟" : "關閉"}</h3>
           </div>
 
-          <LuckySports ref={lsDisplayRef} />
+          {isToggled ? (
+            <LuckySports ref={lsDisplayRef} />
+          ) : (
+            // TODO: 手機錨定的時候有些問題。 之後再研究 先專心處理 桌面板的
+            <LuckySportsMb ref={npnDisplayRef} />
+          )}
         </div>
       </div>
     </div>
