@@ -2,12 +2,16 @@ import { useState } from "react";
 import { Layout } from "antd";
 import { CaretRightFilled } from "@ant-design/icons";
 import { useCountStore } from "../store/store";
+import { initialSettings } from "../config/settings";
 const { Sider } = Layout;
 
 const Setting = ({ params }) => {
   const { isToggled, toggle } = useCountStore((state) => state);
+  const [settingList, setSettingList] = useState(initialSettings);
   const [showDesktop, setShowDesktop] = useState(true);
   const [collapsed, setCollapsed] = useState(false);
+
+  console.log({ settingList });
   return (
     <div
       style={{
@@ -27,10 +31,10 @@ const Setting = ({ params }) => {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
-        width={200}
+        width={"100%"}
         style={{
           position: "relative",
-          backgroundColor: "green", // Add this line
+          backgroundColor: "#000000", // Add this line
           minHeight: "100%",
         }}
       >
@@ -47,24 +51,39 @@ const Setting = ({ params }) => {
             <CaretRightFilled />
           </div>
         </div>
-        <div className="demo-logo-vertical">{params.other}</div>
         <div className="demo-logo-vertical">
-          <div
-            onClick={() => {
-              setShowDesktop(false);
-            }} // 點 button1 顯示 Desktop
-            className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full min-w-[35%] ${
-              showDesktop ? "bg-yellow-500" : "bg-gray-500"
-            }`}
-          >
-            電腦版
-          </div>
           <button onClick={toggle}>
             {isToggled ? "開啟中 ✅" : "關閉中 ❌"}
           </button>
         </div>
         <div>
-          <span>中間區域:</span>
+          {settingList.map((item, index) => (
+            <div
+              key={index}
+              className="min-w-[260px] shadow-lg overflow-hidden text-white"
+            >
+              <div className="h-12 bg-[#424242] p-4 font-semibold text-zinc-900 flex justify-center items-center">
+                <div className="">{item.title}</div>
+              </div>
+              <div className="p-4 flex flex-col gap-3 items-center justify-center bg-[#000000] h-16">
+                <div className="flex items-center gap-3 ">
+                  {!item.btn ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <span className="font-medium">
+                        {item.checked ? item.onText : item.offText}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-1">
+                      <div className="flex items-center justify-center bg-yellow-500 cursor-pointer text-black px-12 py-2 rounded-full">
+                        {item.btnText}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </Sider>
     </div>
