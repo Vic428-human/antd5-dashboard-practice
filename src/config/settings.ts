@@ -1,20 +1,16 @@
-export interface SettingItem {
-  title: string;
-  checked: boolean;
-  onText: string;
-  offText: string;
-  btn: boolean;
-  btnText: string;
-}
-
-export const initialSettings: SettingItem[] = [
+export const initialSettings = [
   {
-    title: "displayPCBanner",
-    checked: true,
-    onText: "Lucky Exchange",
-    offText: "Lucky Sport",
-    btn: false,
-    btnText: "",
+    title: "header",
+    options: [
+      { label: "Show", active: true }, // 已選中
+      { label: "Hide", active: false },
+    ] as const,
   },
-  // 你可以再加入其他設定項目
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
 ];

@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Outlet } from "react-router-dom";
+import { Switch } from "antd";
 import { Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import SidebarMenu from "../Menu/SidebarMenu";
@@ -7,6 +8,7 @@ import LuckySports from "../../components/LuckySports.tsx";
 import LuckySportsMb from "../../components/LuckySportsMb.tsx";
 import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
 import { useCountStore } from "../../store/store";
+
 const { Sider } = Layout;
 
 const ContainerLayout = () => {
@@ -25,7 +27,6 @@ const ContainerLayout = () => {
     const options = {
       [title]: value,
     };
-    console.log("====>options", options);
     lsDisplayRef.current?.updateOptions({
       options: options,
     });
@@ -52,7 +53,7 @@ const ContainerLayout = () => {
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>
       {/* demo   */}
-      <Outlet />
+      <Outlet context={{ isDisplay }} />
       <div className="flex flex-col w-[100%]">
         <div className="flex justify-between p-4">
           <div className="flex">
@@ -80,7 +81,7 @@ const ContainerLayout = () => {
                 mode === "mobile" ? "bg-yellow-500" : "bg-gray-300"
               }`}
             >
-              Mobile
+              Reset
             </div>
             <div
               onClick={() => setMode("pc")}
@@ -88,7 +89,7 @@ const ContainerLayout = () => {
                 mode === "pc" ? "bg-yellow-500" : "bg-gray-300"
               }`}
             >
-              PC
+              save
             </div>
           </div>
         </div>

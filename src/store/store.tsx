@@ -15,3 +15,56 @@ export const useCountStore = create<CountState>()((set) => ({
   resetCount: () => set({ count: 0 }),
   setMode: (mode) => set({ mode }), // 切換模式
 }));
+
+type Option = { label: string; active: boolean };
+type Setting = {
+  title: string;
+  ryanSetting: string;
+  options: readonly Option[];
+};
+
+type Store = {
+  settings: Setting[];
+  toggleOption: (settingTitle: string, label: string) => void;
+};
+
+export const useSettingsStore = create<Store>((set) => ({
+  settings: [
+    {
+      title: "displayPCScoreboard",
+      ryanSetting: "displayPCScoreboard",
+      options: [
+        { label: "顯示", active: true },
+        { label: "關閉", active: false },
+      ],
+    },
+    {
+      title: "Template",
+      options: [
+        { label: "Lucky Exchange", active: true },
+        { label: "Lucky Sport", active: false },
+      ],
+    },
+    {
+      title: "Sports Priority",
+      options: [
+        { label: "Cricket First", active: false },
+        { label: "Soccer First", active: true },
+      ],
+    },
+  ],
+  toggleOption: (settingTitle, label) =>
+    set((state) => ({
+      settings: state.settings.map((setting) =>
+        setting.title === settingTitle
+          ? {
+              ...setting,
+              options: setting.options.map((option) => ({
+                ...option,
+                active: option.label === label,
+              })),
+            }
+          : setting
+      ),
+    })),
+}));
