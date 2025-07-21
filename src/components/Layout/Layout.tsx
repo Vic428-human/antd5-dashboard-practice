@@ -31,7 +31,7 @@ const ContainerLayout = () => {
     });
   };
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-[#272221]">
       <Sider
         trigger={null}
         collapsible
@@ -54,24 +54,45 @@ const ContainerLayout = () => {
       {/* demo   */}
       <Outlet />
       <div className="flex flex-col w-[100%]">
-        <div className="flex ">
-          <div
-            onClick={() => setMode("mobile")}
-            className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
-              mode === "mobile" ? "bg-yellow-500" : "bg-gray-300"
-            }`}
-          >
-            Mobile
+        <div className="flex justify-between p-4">
+          <div className="flex">
+            <div
+              onClick={() => setMode("mobile")}
+              className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
+                mode === "mobile" ? "bg-yellow-500" : "bg-gray-300"
+              }`}
+            >
+              Mobile
+            </div>
+            <div
+              onClick={() => setMode("pc")}
+              className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
+                mode === "pc" ? "bg-yellow-500" : "bg-gray-300"
+              }`}
+            >
+              PC
+            </div>
           </div>
-          <div
-            onClick={() => setMode("pc")}
-            className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
-              mode === "pc" ? "bg-yellow-500" : "bg-gray-300"
-            }`}
-          >
-            PC
+          <div className="flex">
+            <div
+              onClick={() => setMode("mobile")}
+              className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
+                mode === "mobile" ? "bg-yellow-500" : "bg-gray-300"
+              }`}
+            >
+              Mobile
+            </div>
+            <div
+              onClick={() => setMode("pc")}
+              className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
+                mode === "pc" ? "bg-yellow-500" : "bg-gray-300"
+              }`}
+            >
+              PC
+            </div>
           </div>
         </div>
+
         <div className="flex-1 flex items-center justify-center overflow-y-auto">
           <div className="flex items-center justify-center w-[100%] p-8  text-center relative">
             <div
