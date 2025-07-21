@@ -51,11 +51,6 @@ const Setting = ({ params }) => {
             <CaretRightFilled />
           </div>
         </div>
-        <div className="demo-logo-vertical">
-          <button onClick={toggle}>
-            {isToggled ? "開啟中 ✅" : "關閉中 ❌"}
-          </button>
-        </div>
         <div>
           {settingList.map((item, index) => (
             <div
