@@ -10,11 +10,15 @@ import { useCountStore } from "../../store/store";
 const { Sider } = Layout;
 
 const ContainerLayout = () => {
-  const { isToggled, toggle } = useCountStore();
+  const { mode, setMode } = useCountStore();
 
   const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
   const npnDisplayRef = useRef<LuckySportsInstance | null>(null);
   const navigate = useNavigate();
+
+  const containerWidthClass = mode === "pc" ? "w-full" : "w-[375px]";
+  const DisplayComponent = mode === "pc" ? LuckySports : LuckySportsMb;
+  const displayRef = mode === "pc" ? lsDisplayRef : npnDisplayRef;
 
   const isDisplay = (props) => {
     const { title, value } = props;
@@ -49,23 +53,39 @@ const ContainerLayout = () => {
       </Sider>
       {/* demo   */}
       <Outlet />
-      <div className="flex items-center justify-center w-[100%] p-2 text-center relative">
-        <div
-          className={`relative h-[90%] w-[1100px] overflow-auto transition-all duration-300 ease-in-out ${
-            isToggled ? "w-full" : "w-[375px]"
-          }`}
-        >
-          <div>
-            <span>右邊</span>
-            <h3>切換狀態: {isToggled ? "開啟" : "關閉"}</h3>
+      <div className="flex flex-col w-[100%]">
+        <div className="flex ">
+          <div
+            onClick={() => setMode("mobile")}
+            className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
+              mode === "mobile" ? "bg-yellow-500" : "bg-gray-300"
+            }`}
+          >
+            Mobile
           </div>
-
-          {isToggled ? (
-            <LuckySports ref={lsDisplayRef} />
-          ) : (
-            // TODO: 手機錨定的時候有些問題。 之後再研究 先專心處理 桌面板的
-            <LuckySportsMb ref={npnDisplayRef} />
-          )}
+          <div
+            onClick={() => setMode("pc")}
+            className={`flex items-center justify-center h-8 cursor-pointer text-black px-4 py-2 rounded-full w-[120px] transition-all duration-200 ${
+              mode === "pc" ? "bg-yellow-500" : "bg-gray-300"
+            }`}
+          >
+            PC
+          </div>
+        </div>
+        <div className="flex-1 flex items-center justify-center overflow-y-auto">
+          <div className="flex items-center justify-center w-[100%] p-8  text-center relative">
+            <div
+              className={`
+      relative h-[80%] max-w-[1100px] overflow-auto
+      transition-all duration-300 ease-in-out
+      ${containerWidthClass} 
+    `}
+            >
+              <div className="h-[calc(100vh-120px)] overflow-y-auto">
+                <DisplayComponent ref={displayRef} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
