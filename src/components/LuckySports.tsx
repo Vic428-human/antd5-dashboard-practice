@@ -26,8 +26,9 @@ const LuckySports = forwardRef((props, ref: any) => {
 
     // cleanup function
     return () => {
-      if (ref?.current) return;
+      // if (ref?.current) return;
       ref.current?.kill();
+      ref.current = null;
     };
   }, []);
 
