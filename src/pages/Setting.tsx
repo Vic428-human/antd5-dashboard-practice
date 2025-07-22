@@ -11,6 +11,7 @@ const Setting = () => {
   const { isDisplay } = useOutletContext();
 
   const {
+    setDisplaySportsRaw,
     uncheckAllCategories,
     checkAllCategories,
     sportsCategories,
@@ -26,6 +27,13 @@ const Setting = () => {
   );
 
   useEffect(() => {
+    const fetchDisplaySettings = async () => {
+      // const response = await axios.get("/api/settings"); // 根據你的 API 調整
+      // const newRaw = response.data.displaySportsRaw;
+      setDisplaySportsRaw("2,4"); // 更新 store
+    };
+
+    fetchDisplaySettings();
     useSettingsStore.getState().initializeCategories();
   }, []);
 

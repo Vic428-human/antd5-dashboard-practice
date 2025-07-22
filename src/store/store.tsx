@@ -46,9 +46,16 @@ type SettingsState = {
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   // 後端只會傳 string，格式為 "2,4"
-  displaySportsRaw: "2,4",
-  setDisplaySportsRaw: (value) => set({ displaySportsRaw: value }),
+  displaySportsRaw: "",
+  // setDisplaySportsRaw: (value) => set({ displaySportsRaw: value }),
+  setDisplaySportsRaw: (newRaw: string) => set({ displaySportsRaw: newRaw }),
   sportsCategories: [
+    {
+      title: "displaySports",
+      value: "soccer",
+      checked: false,
+      id: "1",
+    },
     {
       title: "displaySports",
       value: "tennis",
