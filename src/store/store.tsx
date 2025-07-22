@@ -16,74 +16,64 @@ export const useCountStore = create<CountState>()((set) => ({
   setMode: (mode) => set({ mode }), // 切換模式
 }));
 
-type Option = { label: string; active: boolean };
-interface Setting {
+type SportsCategory = {
   title: string;
-  ryanSetting: string;
-  options: Option[];
-  switch: boolean; // 新增的屬性
-}
+  value: string;
+  checked: boolean;
+};
 
-interface Store {
-  settings: Setting[];
-  toggleOption: (settingTitle: string, label: string) => void;
-  toggleSwitch: (settingTitle: string) => void;
-}
+type SettingItem = {
+  title: string;
+  checked: boolean;
+  onText: string;
+  offText: string;
+  btn?: boolean;
+};
 
-export const useSettingsStore = create<Store>((set) => ({
-  settings: [
+type SettingsState = {
+  sportsCategories: SportsCategory[];
+  initialSettings: SettingItem[];
+  toggleCategory: (value: string) => void;
+  toggleSetting: (title: string) => void;
+};
+
+export const useSettingsStore = create<SettingsState>((set) => ({
+  sportsCategories: [
+    { title: "All", value: "all", checked: false },
+    { title: "Aussie rules", value: "aussie_rules", checked: true },
+  ],
+  initialSettings: [
     {
-      title: "displayPCScoreboard",
-      ryanSetting: "displayPCScoreboard",
-      switch: true, // ✅ 新增
-      options: [
-        { label: "顯示", active: true },
-        { label: "關閉", active: false },
-      ],
+      title: "displayPCBanner",
+      checked: true,
+      onText: "Lucky Exchange",
+      offText: "Lucky Sport",
     },
     {
-      title: "Template",
-      ryanSetting: "displayPCScoreboard",
-      switch: true, // ✅ 新增
-      options: [
-        { label: "Lucky Exchange", active: true },
-        { label: "Lucky Sport", active: false },
-      ],
+      title: "AA222",
+      checked: true,
+      onText: "AAA",
+      offText: "VVV",
     },
     {
-      title: "Sports Priority",
-      ryanSetting: "displayPCScoreboard",
-      switch: true, // ✅ 新增
-      options: [
-        { label: "Cricket First", active: false },
-        { label: "Soccer First", active: true },
-      ],
+      title: "Sports Categories",
+      checked: false,
+      onText: "BBB",
+      offText: "CCC",
+      btn: true,
     },
   ],
-  toggleOption: (settingTitle, label) =>
+  toggleCategory: (value) =>
     set((state) => ({
-      settings: state.settings.map((setting) =>
-        setting.title === settingTitle
-          ? {
-              ...setting,
-              options: setting.options.map((option) => ({
-                ...option,
-                active: option.label === label,
-              })),
-            }
-          : setting
+      sportsCategories: state.sportsCategories.map((cat) =>
+        cat.value === value ? { ...cat, checked: !cat.checked } : cat
       ),
     })),
-
-  // ✅ 新增 toggleSwitch 方法，切換 switch 值
-  toggleSwitch: (settingTitle) =>
+  toggleSetting: (title) =>
     set((state) => ({
-      settings: state.settings.map((setting) =>
-        setting.title === settingTitle
-          ? {
-              ...setting,
-              switch: !setting.switch, // 反轉 true/false
-            }
+      initialSettings: state.initialSettings.map((setting) =>
+        setting.title === title
+          ? { ...setting, checked: !setting.checked }
           : setting
       ),
     })),
