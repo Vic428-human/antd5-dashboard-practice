@@ -1,18 +1,100 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Layout, Switch } from "antd";
 import { CaretRightFilled } from "@ant-design/icons";
 import { useSettingsStore } from "../store/store";
 import { useOutletContext } from "react-router-dom";
 import { assets } from "../assets/assets.ts";
+import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
 // import { onLiveDot } from "../assets/assets.ts";
 const { Sider } = Layout;
 
 const Setting = ({ params }) => {
   const { isDisplay } = useOutletContext();
-  const { sportsCategories, initialSettings, toggleCategory, toggleSetting } =
-    useSettingsStore();
+
+  const {
+    initializeCategories,
+    uncheckAllCategories,
+    checkAllCategories,
+    displaySports,
+    sportsCategories,
+    initialSettings,
+    toggleCategory,
+    toggleSetting,
+  } = useSettingsStore();
+  const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
   const [collapsed, setCollapsed] = useState(false);
-  console.log("sportsCategories", sportsCategories);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [selectedStr, setSelectedStr] = useState<string>("");
+  // ⭐ 用來儲存所有的 id
+  const [categoryIds, setCategoryIds] = useState([]);
+  const allUnchecked = sportsCategories.every(
+    (category) => category.checked === true
+  );
+
+  useEffect(() => {
+    const ids = sportsCategories.map((category) => category.id);
+    setCategoryIds(ids);
+  }, []);
+
+  useEffect(() => {
+    useSettingsStore.getState().initializeCategories();
+  }, []);
+
+  useEffect(() => {
+    const str = selectedIds.join(",");
+    setSelectedStr(str);
+    if (selectedIds.length === 0) {
+      // isDisplay({ title: "displaySports", value: "2,4" });
+    } else {
+      isDisplay({ title: "displaySports", value: str });
+    }
+  }, [selectedIds]);
+
+  useEffect(() => {
+    const selected = sportsCategories
+      .filter((cat) => cat.checked)
+      .map((cat) => cat.id);
+    setSelectedIds(selected);
+  }, [sportsCategories]);
+
+  function handleSelect(option) {
+    if (option === "all") {
+      if (allUnchecked === true) {
+        // 全部已選，點擊 all 則「全部取消」
+        uncheckAllCategories();
+        isDisplay({ title: "displaySports", value: "0" });
+      } else {
+        // 非全選，點擊 all 則「全部選取」
+        checkAllCategories();
+        // isDisplay({ title: "displaySports", value: "2,4" });
+      }
+    } else {
+      // 點選個別選項
+      if (selectedIds.includes(option)) {
+        // selectedIds = selectedIds.filter((key) => key !== option);
+      } else {
+        // selectedIds = [...selectedIds, option];
+      }
+
+      // 自動勾選或取消 all
+      const others = options.filter((key) => key !== "all");
+      const allPicked = others.every((key) => selectedIds.includes(key));
+      if (allPicked) {
+        // 全部個別選項已選，all 也需被選
+        // selectedIds = [...others, "all"];
+      } else {
+        // 有任何個別選項沒選，all 移除
+        // selectedIds = selectedIds.filter((key) => key !== "all");
+      }
+    }
+    // console.log(selectedIds);
+  }
+
+  const handleClick = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
   const RequirementRow = ({
     text,
     checked,
@@ -101,12 +183,23 @@ const Setting = ({ params }) => {
                   </div>
                 ) : (
                   <div className="flex flex-col justify-center ">
-                    {sportsCategories.map((cat) => (
+                    <RequirementRow
+                      key={"all"}
+                      text={"all"}
+                      checked={allUnchecked}
+                      onClick={() => {
+                        handleSelect("all");
+                      }}
+                    />
+                    {sportsCategories?.map((cat) => (
                       <RequirementRow
                         key={cat.value}
-                        text={cat.title}
+                        text={cat.value}
                         checked={cat.checked}
-                        onClick={() => toggleCategory(cat.value)}
+                        onClick={() => {
+                          handleClick(cat.id);
+                          toggleCategory(cat.value);
+                        }}
                       />
                     ))}
                   </div>
