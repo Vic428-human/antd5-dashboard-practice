@@ -4,37 +4,26 @@ import { CaretRightFilled } from "@ant-design/icons";
 import { useSettingsStore } from "../store/store";
 import { useOutletContext } from "react-router-dom";
 import { assets } from "../assets/assets.ts";
-import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
 // import { onLiveDot } from "../assets/assets.ts";
 const { Sider } = Layout;
 
-const Setting = ({ params }) => {
+const Setting = () => {
   const { isDisplay } = useOutletContext();
 
   const {
-    initializeCategories,
     uncheckAllCategories,
     checkAllCategories,
-    displaySports,
     sportsCategories,
     initialSettings,
     toggleCategory,
     toggleSetting,
   } = useSettingsStore();
-  const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
   const [collapsed, setCollapsed] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [selectedStr, setSelectedStr] = useState<string>("");
-  // ⭐ 用來儲存所有的 id
-  const [categoryIds, setCategoryIds] = useState([]);
   const allUnchecked = sportsCategories.every(
     (category) => category.checked === true
   );
-
-  useEffect(() => {
-    const ids = sportsCategories.map((category) => category.id);
-    setCategoryIds(ids);
-  }, []);
 
   useEffect(() => {
     useSettingsStore.getState().initializeCategories();
@@ -44,7 +33,7 @@ const Setting = ({ params }) => {
     const str = selectedIds.join(",");
     setSelectedStr(str);
     if (selectedIds.length === 0) {
-      // isDisplay({ title: "displaySports", value: "2,4" });
+      isDisplay({ title: "displaySports", value: "0" });
     } else {
       isDisplay({ title: "displaySports", value: str });
     }
