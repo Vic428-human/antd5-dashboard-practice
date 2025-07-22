@@ -7,6 +7,8 @@ import header_img from "./header_img.png";
 import logo from "./logo.svg";
 import off from "./OFF.svg";
 import on from "./ON.svg";
+import onLiveDot from "./onLiveDot.svg";
+import function_succes from "./function_succes.svg";
 
 export const assets = {
   arrow_icon,
@@ -18,4 +20,6 @@ export const assets = {
   logo,
   off,
   on,
+  onLiveDot,
+  function_succes,
 };
