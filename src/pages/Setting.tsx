@@ -37,7 +37,7 @@ const Setting = ({ params }) => {
       style={{
         backgroundColor: "green", // Add this line
       }}
-      className="h-screen"
+      className="h-screen overflow-auto"
     >
       <Sider
         trigger={null}
@@ -55,11 +55,11 @@ const Setting = ({ params }) => {
         style={{
           position: "relative",
           backgroundColor: "#000000", // Add this line
-          minHeight: "100%",
+          // minHeight: "800px",
         }}
       >
         <div
-          className="text-white h-[30px] w-[30px] bg-red-600 flex items-center justify-center absolute bottom-[0px]  z-[1000]"
+          className="text-white h-[30px] w-[30px] bg-red-600 flex items-center justify-center absolute bottom-[50px] z-[1000]"
           onClick={() => setCollapsed(!collapsed)}
         >
           <div
@@ -91,7 +91,7 @@ const Setting = ({ params }) => {
                         toggleSetting(setting.title);
                         isDisplay({
                           title: setting.title,
-                          value: setting.checked,
+                          value: !setting.checked,
                         });
                       }}
                     />
