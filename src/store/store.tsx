@@ -2,24 +2,25 @@ import { create } from "zustand";
 
 export interface CountState {
   count: number;
-  mode: "mobile" | "pc"; // 狀態從 boolean 改成 union 字串型別
+  mode: "mobile" | "pc";
   increase: (by: number) => void;
   resetCount: () => void;
-  setMode: (mode: "mobile" | "pc") => void; // 設定目前模式的方法
+  setMode: (mode: "mobile" | "pc") => void;
 }
 
 export const useCountStore = create<CountState>()((set) => ({
   count: 0,
-  mode: "pc", // 依預設設為PC，可根據需求調整
+  mode: "pc",
   increase: (by) => set((state) => ({ count: state.count + by })),
   resetCount: () => set({ count: 0 }),
-  setMode: (mode) => set({ mode }), // 切換模式
+  setMode: (mode) => set({ mode }),
 }));
 
 type SportsCategory = {
   title: string;
   value: string;
   checked: boolean;
+  id: string;
 };
 
 type SettingItem = {
@@ -28,22 +29,39 @@ type SettingItem = {
   onText: string;
   offText: string;
   btn?: boolean;
+  [key: string]: any; // 支援額外動態屬性如 displayPCNavHome
 };
 
 type SettingsState = {
+  displaySportsRaw: string; // ← 後端傳來 "2,4"
   sportsCategories: SportsCategory[];
   initialSettings: SettingItem[];
   toggleCategory: (value: string) => void;
   toggleSetting: (title: string) => void;
+  checkAllCategories: () => void;
+  uncheckAllCategories: () => void;
+  initializeCategories: () => void;
+  setDisplaySportsRaw: (value: string) => void;
 };
 
-export const useSettingsStore = create<SettingsState>((set) => ({
+export const useSettingsStore = create<SettingsState>((set, get) => ({
+  // 後端只會傳 string，格式為 "2,4"
+  displaySportsRaw: "2,4",
+  setDisplaySportsRaw: (value) => set({ displaySportsRaw: value }),
   sportsCategories: [
-    { title: "All", value: "all", checked: false },
-    { title: "Aussie rules", value: "aussie_rules", checked: true },
+    {
+      title: "displaySports",
+      value: "tennis",
+      checked: false,
+      id: "2",
+    },
+    {
+      title: "displaySports",
+      value: "Cricket",
+      checked: false,
+      id: "4",
+    },
   ],
-  //TODO: 數值代表有量的，其餘都是沒量的
-  XXsportsCategories: [1, 4, 6],
   initialSettings: [
     {
       title: "is9WLayout",
@@ -59,7 +77,6 @@ export const useSettingsStore = create<SettingsState>((set) => ({
       offText: "Lucky Sport",
       isSouthAsia: true,
     },
-    // TODO: offsetTop 要是數字
     {
       title: "offsetTop",
       checked: false,
@@ -145,4 +162,29 @@ export const useSettingsStore = create<SettingsState>((set) => ({
           : setting
       ),
     })),
+  checkAllCategories: () =>
+    set((state) => ({
+      sportsCategories: state.sportsCategories.map((cat) => ({
+        ...cat,
+        checked: true,
+      })),
+    })),
+  uncheckAllCategories: () =>
+    set((state) => ({
+      sportsCategories: state.sportsCategories.map((cat) => ({
+        ...cat,
+        checked: false,
+      })),
+    })),
+  initializeCategories: () => {
+    const { displaySportsRaw, sportsCategories } = get();
+    const displaySports = displaySportsRaw.split(",");
+
+    const updatedCategories = sportsCategories.map((category) => ({
+      ...category,
+      checked: displaySports.includes(category.id),
+    }));
+
+    set({ sportsCategories: updatedCategories });
+  },
 }));
