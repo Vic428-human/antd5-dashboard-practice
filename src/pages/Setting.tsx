@@ -1,18 +1,36 @@
 import { useState, useEffect } from "react";
-import { Layout } from "antd";
+import { Layout, Switch } from "antd";
 import { CaretRightFilled } from "@ant-design/icons";
 import { useSettingsStore } from "../store/store";
 import { useOutletContext } from "react-router-dom";
+import { assets } from "../assets/assets.ts";
+// import { onLiveDot } from "../assets/assets.ts";
 const { Sider } = Layout;
 
 const Setting = ({ params }) => {
   const { isDisplay } = useOutletContext();
-  const {
-    settings,
-    toggleOption,
-    toggleSwitch, // 若你也要控制 switch 變化
-  } = useSettingsStore();
+  const { sportsCategories, initialSettings, toggleCategory, toggleSetting } =
+    useSettingsStore();
   const [collapsed, setCollapsed] = useState(false);
+  console.log("sportsCategories", sportsCategories);
+  const RequirementRow = ({
+    text,
+    checked,
+    onClick,
+  }: {
+    text: string;
+    checked: boolean;
+    onClick: () => void;
+  }) => {
+    const iconSrc = checked ? assets.function_succes : assets.onLiveDot;
+
+    return (
+      <div onClick={onClick} className="flex items-center gap-2 cursor-pointer">
+        <img src={iconSrc} alt="" className="w-[12px] sm:w-[12px]" />
+        <span>{text}</span>
+      </div>
+    );
+  };
 
   return (
     <div
@@ -54,7 +72,7 @@ const Setting = ({ params }) => {
           </div>
         </div>
         <div>
-          {settings.map((setting, index) => (
+          {initialSettings.map((setting, index) => (
             <div
               key={index}
               className="min-w-[260px] shadow-lg overflow-hidden text-white"
@@ -62,37 +80,37 @@ const Setting = ({ params }) => {
               <div className="h-12 bg-[#424242] p-4 font-semibold text-zinc-900 flex justify-center items-center">
                 <div className="">{setting.title}</div>
               </div>
-              <div className="p-4 flex gap-3 items-center justify-center bg-[#000000] h-16">
-                {setting.options.map((option) => (
-                  <div
-                    key={option.label}
-                    className={`flex items-center justify-center max-w-[120px] h-8 cursor-pointer text-black px-4 py-2 rounded-md w-[140px] transition-all duration-200 bg-gray-300 whitespace-nowrap ${
-                      option.active
-                        ? "bg-red-500 font-medium font-['Roboto'] leading-none"
-                        : "bg-[#c6c6c6] font-medium font-['Roboto'] leading-none"
-                    }`}
-                    // option.active 不能直接拿原本的
-                    onClick={() => {
-                      // ✅ 1. 取得舊值
-                      const currentSetting = settings.find(
-                        (s) => s.title === setting.title
-                      );
-                      const currentChecked = currentSetting?.switch ?? false;
-                      console.log("currentChecked===>", currentChecked);
-                      // ✅ 2. 執行邏輯
-                      toggleOption(setting.title, option.label);
-                      // ✅ 3. 如果你也想切換 switch 值，加這行
-                      toggleSwitch(setting.title);
-                      // ✅ 4. 使用舊狀態做你的 callback
-                      isDisplay({
-                        title: setting.title,
-                        value: currentChecked,
-                      });
-                    }}
-                  >
-                    {option.label}
+              <div className="p-4 flex gap-3 bg-[#000000] h-16">
+                {!setting.btn ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <Switch
+                      checkedChildren="ON"
+                      unCheckedChildren="OFF"
+                      checked={setting.checked}
+                      onChange={() => {
+                        toggleSetting(setting.title);
+                        isDisplay({
+                          title: setting.title,
+                          value: setting.checked,
+                        });
+                      }}
+                    />
+                    <span className="font-medium">
+                      {setting.checked ? setting.onText : setting.offText}
+                    </span>
                   </div>
-                ))}
+                ) : (
+                  <div className="flex flex-col justify-center ">
+                    {sportsCategories.map((cat) => (
+                      <RequirementRow
+                        key={cat.value}
+                        text={cat.title}
+                        checked={cat.checked}
+                        onClick={() => toggleCategory(cat.value)}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
