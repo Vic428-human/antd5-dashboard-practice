@@ -26,15 +26,32 @@ const Setting = () => {
     (category) => category.checked === true
   );
 
-  useEffect(() => {
-    const fetchDisplaySettings = async () => {
-      // const response = await axios.get("/api/settings"); // 根據你的 API 調整
-      // const newRaw = response.data.displaySportsRaw;
-      setDisplaySportsRaw("2,4"); // 更新 store
+  async function fetchMockData() {
+    // 模擬 API 延遲
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // 模擬返回的資料結構
+    const mockResponse = {
+      data: {
+        displaySportsRaw: "1,4",
+      },
     };
 
-    fetchDisplaySettings();
-    useSettingsStore.getState().initializeCategories();
+    return mockResponse;
+  }
+  useEffect(() => {
+    const fetchDisplaySettings = async () => {
+      try {
+        const response = await fetchMockData();
+        setDisplaySportsRaw(response.data.displaySportsRaw);
+
+        useSettingsStore.getState().initializeCategories();
+      } catch (error) {
+        console.error("模擬 API 錯誤:", error);
+      }
+    };
+
+    fetchDisplaySettings(); // 只呼叫這個
   }, []);
 
   useEffect(() => {
