@@ -152,7 +152,6 @@ const Home = () => {
     const options = {
       [title]: value,
     };
-    console.log("====>options", options);
     lsDisplayRef.current?.updateOptions({
       options: options,
     });

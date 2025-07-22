@@ -4,10 +4,6 @@ import { useSettingsStore } from "../store/store";
 // /https://widget-dev-v3/mock/LuckySports.es.js
 
 const LuckySports = forwardRef((props, ref: any) => {
-  console.log(
-    "useSettingsStore.getState().displaySportsRaw",
-    useSettingsStore.getState().displaySportsRaw
-  );
   useEffect(() => {
     (async () => {
       const LuckySports = (
