@@ -7,8 +7,11 @@ const { Sider } = Layout;
 
 const Setting = ({ params }) => {
   const { isDisplay } = useOutletContext();
-  const settings = useSettingsStore((s) => s.settings);
-  const toggleOption = useSettingsStore((s) => s.toggleOption);
+  const {
+    settings,
+    toggleOption,
+    toggleSwitch, // 若你也要控制 switch 變化
+  } = useSettingsStore();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -68,11 +71,22 @@ const Setting = ({ params }) => {
                         ? "bg-red-500 font-medium font-['Roboto'] leading-none"
                         : "bg-[#c6c6c6] font-medium font-['Roboto'] leading-none"
                     }`}
+                    // option.active 不能直接拿原本的
                     onClick={() => {
+                      // ✅ 1. 取得舊值
+                      const currentSetting = settings.find(
+                        (s) => s.title === setting.title
+                      );
+                      const currentChecked = currentSetting?.switch ?? false;
+                      console.log("currentChecked===>", currentChecked);
+                      // ✅ 2. 執行邏輯
                       toggleOption(setting.title, option.label);
+                      // ✅ 3. 如果你也想切換 switch 值，加這行
+                      toggleSwitch(setting.title);
+                      // ✅ 4. 使用舊狀態做你的 callback
                       isDisplay({
                         title: setting.title,
-                        value: option.active,
+                        value: currentChecked,
                       });
                     }}
                   >

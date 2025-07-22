@@ -17,22 +17,25 @@ export const useCountStore = create<CountState>()((set) => ({
 }));
 
 type Option = { label: string; active: boolean };
-type Setting = {
+interface Setting {
   title: string;
   ryanSetting: string;
-  options: readonly Option[];
-};
+  options: Option[];
+  switch: boolean; // 新增的屬性
+}
 
-type Store = {
+interface Store {
   settings: Setting[];
   toggleOption: (settingTitle: string, label: string) => void;
-};
+  toggleSwitch: (settingTitle: string) => void;
+}
 
 export const useSettingsStore = create<Store>((set) => ({
   settings: [
     {
       title: "displayPCScoreboard",
       ryanSetting: "displayPCScoreboard",
+      switch: true, // ✅ 新增
       options: [
         { label: "顯示", active: true },
         { label: "關閉", active: false },
@@ -40,6 +43,8 @@ export const useSettingsStore = create<Store>((set) => ({
     },
     {
       title: "Template",
+      ryanSetting: "displayPCScoreboard",
+      switch: true, // ✅ 新增
       options: [
         { label: "Lucky Exchange", active: true },
         { label: "Lucky Sport", active: false },
@@ -47,6 +52,8 @@ export const useSettingsStore = create<Store>((set) => ({
     },
     {
       title: "Sports Priority",
+      ryanSetting: "displayPCScoreboard",
+      switch: true, // ✅ 新增
       options: [
         { label: "Cricket First", active: false },
         { label: "Soccer First", active: true },
@@ -63,6 +70,19 @@ export const useSettingsStore = create<Store>((set) => ({
                 ...option,
                 active: option.label === label,
               })),
+            }
+          : setting
+      ),
+    })),
+
+  // ✅ 新增 toggleSwitch 方法，切換 switch 值
+  toggleSwitch: (settingTitle) =>
+    set((state) => ({
+      settings: state.settings.map((setting) =>
+        setting.title === settingTitle
+          ? {
+              ...setting,
+              switch: !setting.switch, // 反轉 true/false
             }
           : setting
       ),
