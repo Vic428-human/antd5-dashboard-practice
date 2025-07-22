@@ -1,8 +1,13 @@
 import { useEffect, forwardRef } from "react";
 import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
+import { useSettingsStore } from "../store/store";
 // /https://widget-dev-v3/mock/LuckySports.es.js
 
 const LuckySports = forwardRef((props, ref: any) => {
+  console.log(
+    "useSettingsStore.getState().displaySportsRaw",
+    useSettingsStore.getState().displaySportsRaw
+  );
   useEffect(() => {
     (async () => {
       const LuckySports = (
@@ -19,7 +24,9 @@ const LuckySports = forwardRef((props, ref: any) => {
         token:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRhMWU5ZDgtMWUxZS00NGMzLTkxNmMtNTgxOGQyYmU0YmRhIiwicGxheWVyX2lkIjoiY2tleF90ZXN0X3BsYXllcjEiLCJtZXJjaGFudF9jb2RlIjoiYmFja29mZmljZS1kOWUzMiIsImlzc3VlZF9hdCI6IjIwMjMtMDItMTBUMDg6NTc6MjkuOTExNzA3NDE1WiIsImV4cGlyZXNfYXQiOiIyMDMwLTAyLTEwVDAwOjAwOjAwLjAwMDAwMDYzNFoiLCJsYW5ndWFnZSI6ImVuIn0.1HzNrrIGrETdgTpANw6IAh2ZNvpr4sG0-n7jnPIIlnw",
         // theme: { {/** theme settings */} },
-        options: {},
+        options: {
+          displaySports: useSettingsStore.getState().displaySportsRaw,
+        },
         // onLogin: () => {{/** login callback */}},
       });
     })();
