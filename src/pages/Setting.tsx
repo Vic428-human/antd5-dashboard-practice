@@ -33,7 +33,7 @@ const Setting = () => {
     // 模擬返回的資料結構
     const mockResponse = {
       data: {
-        displaySportsRaw: "1,4",
+        displaySportsRaw: "1,sr:sport:2",
       },
     };
 
@@ -154,7 +154,7 @@ const Setting = () => {
           // minHeight: "800px",
         }}
       >
-        <div
+        {/* <div
           className="text-white h-[30px] w-[30px] bg-red-600 flex items-center justify-center absolute bottom-[50px] z-[1000]"
           onClick={() => setCollapsed(!collapsed)}
         >
@@ -166,7 +166,7 @@ const Setting = () => {
           >
             <CaretRightFilled />
           </div>
-        </div>
+        </div> */}
         <div>
           {initialSettings.map((setting, index) => (
             <div

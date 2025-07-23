@@ -30,6 +30,7 @@ type SettingItem = {
   offText: string;
   btn?: boolean;
   [key: string]: any; // 支援額外動態屬性如 displayPCNavHome
+  displayPCNavHome?: boolean;
 };
 
 type SettingsState = {
@@ -51,23 +52,36 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   setDisplaySportsRaw: (newRaw: string) => set({ displaySportsRaw: newRaw }),
   sportsCategories: [
     {
+      // Tennis不曉得為什麼沒顯示
+      title: "displaySports",
+      value: "Basketball",
+      checked: false,
+      id: "sr:sport:2",
+    },
+    // {
+    //   title: "displaySports",
+    //   value: "Badminton",
+    //   checked: false,
+    //   id: "sr:sport:31",
+    // },
+    // {
+    //   title: "displaySports",
+    //   value: "Aussie Rules",
+    //   checked: false,
+    //   id: "sr:sport:13",
+    // },
+    {
       title: "displaySports",
       value: "soccer",
       checked: false,
       id: "1",
     },
-    {
-      title: "displaySports",
-      value: "tennis",
-      checked: false,
-      id: "2",
-    },
-    {
-      title: "displaySports",
-      value: "Cricket",
-      checked: false,
-      id: "4",
-    },
+    // {
+    //   title: "displaySports",
+    //   value: "Cricket",
+    //   checked: false,
+    //   id: "4",
+    // },
   ],
   initialSettings: [
     {
