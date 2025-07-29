@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Setting from "../pages/Setting.tsx";
+import ROSetting from "../pages/roSetting.tsx";
 import ContainerLayout from "../components/Layout/layout.tsx";
 
 function Menu1Detail() {
@@ -11,8 +12,8 @@ function Menu1Detail() {
       return <Setting params={params} />;
     case "settings":
       return <Setting params={params} />;
-    case "styling":
-      return <Setting params={params} />;
+    case "ro-setting":
+      return <ROSetting />;
     default:
       // 如果沒有匹配的，可以顯示預設內容
       return <div>menu-1: {params.other}</div>;

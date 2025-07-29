@@ -30,8 +30,8 @@ const items: MenuItem[] = [
     <AssetIcon name="person_icon" alt="SETTINGS" />
   ),
   getItem(
-    "STYLING",
-    "/styling",
+    "RO計算機",
+    "/ro-setting",
     <AssetIcon name="person_icon" alt="STYLING" />
   ),
 ];
