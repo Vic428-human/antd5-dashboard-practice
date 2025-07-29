@@ -177,47 +177,19 @@ const Setting = () => {
                 <div className="">{setting.title}</div>
               </div>
               <div className="p-4 flex gap-3 bg-[#000000] h-16">
-                {!setting.btn ? (
-                  <div className="flex items-center justify-center space-x-2">
-                    <Switch
-                      checkedChildren="ON"
-                      unCheckedChildren="OFF"
-                      checked={setting.checked}
-                      onChange={() => {
-                        toggleSetting(setting.title);
-                        isDisplay({
-                          title: setting.title,
-                          value: !setting.checked,
-                        });
-                      }}
-                    />
-                    <span className="font-medium">
-                      {setting.checked ? setting.onText : setting.offText}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="flex flex-col justify-center ">
-                    <RequirementRow
-                      key={"all"}
-                      text={"all"}
-                      checked={allUnchecked}
-                      onClick={() => {
-                        handleSelect("all");
-                      }}
-                    />
-                    {sportsCategories?.map((cat) => (
-                      <RequirementRow
-                        key={cat.value}
-                        text={cat.value}
-                        checked={cat.checked}
-                        onClick={() => {
-                          handleClick(cat.id);
-                          toggleCategory(cat.value);
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
+                <div className="flex items-center justify-center space-x-2">
+                  <Switch
+                    checkedChildren="ON"
+                    unCheckedChildren="OFF"
+                    checked={setting.checked}
+                    onChange={() => {
+                      toggleSetting(setting.title);
+                    }}
+                  />
+                  <span className="font-medium">
+                    {setting.checked ? setting.onText : setting.offText}
+                  </span>
+                </div>
               </div>
             </div>
           ))}

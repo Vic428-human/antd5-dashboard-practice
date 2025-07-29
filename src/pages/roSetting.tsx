@@ -1,36 +1,36 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Layout, Switch } from "antd";
+import React from "react";
+import { Switch } from "antd";
 import { useSettingsStore } from "../store/store";
 
 export default function ROSetting() {
-  // TODO:下次確認有沒有更新
   const { initialSettings, toggleSetting } = useSettingsStore();
   return (
-    <div className="flex flex-col">
-      <div
-        key={0}
-        className="min-w-[260px] shadow-lg overflow-hidden text-white"
-      >
-        <div className="h-12 bg-[#424242] p-4 font-semibold text-zinc-900 flex justify-center items-center">
-          <div className="">回魔裝備公式</div>
-        </div>
-        <div className="p-4 flex gap-3 bg-[#000000] h-16">
-          {true ? (
+    <div>
+      {initialSettings.map((setting, index) => (
+        <div
+          key={index}
+          className="min-w-[260px] shadow-lg overflow-hidden text-white"
+        >
+          <div className="h-12 bg-[#424242] p-4 font-semibold text-zinc-900 flex justify-center items-center">
+            <div className="">{setting.title}</div>
+          </div>
+          <div className="p-4 flex gap-3 bg-[#000000] h-16">
             <div className="flex items-center justify-center space-x-2">
               <Switch
                 checkedChildren="ON"
                 unCheckedChildren="OFF"
-                // checked={setting.checked}
+                checked={setting.checked}
                 onChange={() => {
-                  toggleSetting("ro");
+                  toggleSetting(setting.title);
                 }}
               />
+              <span className="font-medium">
+                {setting.checked ? setting.onText : setting.offText}
+              </span>
             </div>
-          ) : (
-            <div className="flex flex-col justify-center "></div>
-          )}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 }
