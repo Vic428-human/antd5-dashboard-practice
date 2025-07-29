@@ -1,22 +1,29 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Layout, Switch } from "antd";
 
 export default function ROSetting() {
   return (
     <div className="flex flex-col">
       <div
-        className={`h-full flex flex-col border-r shadow-sm bg-white ${
-          true ? "w-fit max-w-[300px] " : "w-0"
-        }`}
+        key={0}
+        className="min-w-[260px] shadow-lg overflow-hidden text-white"
       >
-        <div className="overflow-y-auto flex-1">
-          <div
-            className={`
-              justify-between items-center
-              overflow-hidden transition-all 
-          `}
-          >
-            這邊放SWTICH btn
-          </div>
+        <div className="h-12 bg-[#424242] p-4 font-semibold text-zinc-900 flex justify-center items-center">
+          <div className="">回魔裝備公式</div>
+        </div>
+        <div className="p-4 flex gap-3 bg-[#000000] h-16">
+          {true ? (
+            <div className="flex items-center justify-center space-x-2">
+              <Switch
+                checkedChildren="ON"
+                unCheckedChildren="OFF"
+                // checked={setting.checked}
+                onChange={() => {}}
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col justify-center "></div>
+          )}
         </div>
       </div>
     </div>
