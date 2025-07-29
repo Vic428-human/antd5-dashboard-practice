@@ -54,7 +54,9 @@ const ContainerLayout = () => {
       </Sider>
       {/* demo   */}
       <Outlet context={{ isDisplay }} />
-      <div className="flex flex-col w-[100%]">
+
+      {/* TODO: 下面只是當時在實驗串接別的網頁 */}
+      {/* <div className="flex flex-col w-[100%]">
         <div className="flex justify-between p-4">
           <div className="flex">
             <div
@@ -109,7 +111,7 @@ const ContainerLayout = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
