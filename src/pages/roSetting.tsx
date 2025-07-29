@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Layout, Switch } from "antd";
+import { useSettingsStore } from "../store/store";
 
 export default function ROSetting() {
+  // TODO:下次確認有沒有更新
+  const { initialSettings, toggleSetting } = useSettingsStore();
   return (
     <div className="flex flex-col">
       <div
@@ -18,7 +21,9 @@ export default function ROSetting() {
                 checkedChildren="ON"
                 unCheckedChildren="OFF"
                 // checked={setting.checked}
-                onChange={() => {}}
+                onChange={() => {
+                  toggleSetting("ro");
+                }}
               />
             </div>
           ) : (
