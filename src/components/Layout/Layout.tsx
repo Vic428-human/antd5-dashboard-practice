@@ -1,36 +1,27 @@
-import React, { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Switch } from "antd";
 import { Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import SidebarMenu from "../Menu/SidebarMenu";
 import LuckySports from "../../components/LuckySports.tsx";
-import LuckySportsMb from "../../components/LuckySportsMb.tsx";
-import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
-import { useCountStore } from "../../store/store";
+import { useSettingsStore } from "../../store/store";
 
 const { Sider } = Layout;
 
 const ContainerLayout = () => {
-  const { mode, setMode } = useCountStore();
-
-  const lsDisplayRef = useRef<LuckySportsInstance | null>(null);
-  const npnDisplayRef = useRef<LuckySportsInstance | null>(null);
+  const { initialSettings } = useSettingsStore();
+  const divRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const containerWidthClass = mode === "pc" ? "w-full" : "w-[375px]";
-  const DisplayComponent = mode === "pc" ? LuckySports : LuckySportsMb;
-  const displayRef = mode === "pc" ? lsDisplayRef : npnDisplayRef;
+  useEffect(() => {
+    if (divRef.current) {
+      const newDiv = document.createElement("div");
+      newDiv.textContent = "我是一個用 ref 動態新增的區塊";
+      newDiv.style.color = "red";
+      divRef.current.appendChild(newDiv);
+    }
+  }, []);
 
-  const isDisplay = (props) => {
-    const { title, value } = props;
-    const options = {
-      [title]: value,
-    };
-    lsDisplayRef.current?.updateOptions({
-      options: options,
-    });
-  };
   return (
     <div className="flex h-screen bg-[#272221]">
       <Sider
@@ -53,8 +44,9 @@ const ContainerLayout = () => {
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>
       {/* demo   */}
-      <Outlet context={{ isDisplay }} />
-
+      <Outlet context={{}} />
+      {/* 這邊放實際顯示與否的面板 */}
+      <LuckySports ref={divRef} defalut={initialSettings} />
       {/* TODO: 下面只是當時在實驗串接別的網頁 */}
       {/* <div className="flex flex-col w-[100%]">
         <div className="flex justify-between p-4">
