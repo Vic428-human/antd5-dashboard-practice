@@ -28,10 +28,6 @@ export default function MainContent() {
         <Route path="/" element={<ContainerLayout />}>
           <Route path="/:other" element={<Menu1Detail />} />
         </Route>
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/email-verify" element={<EmailVerify />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/verify-menu/:other" element={<Menu1Detail />} /> */}
       </Routes>
     </Router>
   );
