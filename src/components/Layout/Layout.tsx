@@ -13,15 +13,6 @@ const ContainerLayout = () => {
   const divRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (divRef.current) {
-      const newDiv = document.createElement("div");
-      newDiv.textContent = "我是一個用 ref 動態新增的區塊";
-      newDiv.style.color = "red";
-      divRef.current.appendChild(newDiv);
-    }
-  }, []);
-
   return (
     <div className="flex h-screen bg-[#272221]">
       <Sider
@@ -43,7 +34,6 @@ const ContainerLayout = () => {
         <div className="demo-logo-vertical"></div>
         <SidebarMenu onMenuClick={({ key }) => navigate(key as string)} />
       </Sider>
-      {/* demo   */}
       <Outlet context={{}} />
       {/* 這邊放實際顯示與否的面板 */}
       <LuckySports ref={divRef} defalut={initialSettings} />
