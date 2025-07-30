@@ -1,50 +1,78 @@
-import { useEffect, forwardRef } from "react";
-import type { LuckySportsInstance } from "https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js";
-import { useSettingsStore } from "../store/store";
-// /https://widget-dev-v3/mock/LuckySports.es.js
+import { useState, forwardRef } from "react";
 
-const LuckySports = forwardRef((props, ref: any) => {
-  useEffect(() => {
-    (async () => {
-      const LuckySports = (
-        await import("https://widget-dev-v3.ckex.xyz/mock/LuckySports.es.js")
-      ).default as { new (): LuckySportsInstance };
+interface SettingItem {
+  title: string;
+  checked: boolean;
+}
 
-      if (ref?.current) return;
+interface LuckySportsProps {
+  defalut: SettingItem[];
+}
 
-      // Replace your customized LuckySports init
-      ref.current = new LuckySports().init({
-        target: document.getElementById("sport-root"),
-        width: 1100,
-        height: 800,
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRhMWU5ZDgtMWUxZS00NGMzLTkxNmMtNTgxOGQyYmU0YmRhIiwicGxheWVyX2lkIjoiY2tleF90ZXN0X3BsYXllcjEiLCJtZXJjaGFudF9jb2RlIjoiYmFja29mZmljZS1kOWUzMiIsImlzc3VlZF9hdCI6IjIwMjMtMDItMTBUMDg6NTc6MjkuOTExNzA3NDE1WiIsImV4cGlyZXNfYXQiOiIyMDMwLTAyLTEwVDAwOjAwOjAwLjAwMDAwMDYzNFoiLCJsYW5ndWFnZSI6ImVuIn0.1HzNrrIGrETdgTpANw6IAh2ZNvpr4sG0-n7jnPIIlnw",
-        // theme: { {/** theme settings */} },
-        options: {
-          displaySports: useSettingsStore.getState().displaySportsRaw,
-        },
-        // onLogin: () => {{/** login callback */}},
-      });
-    })();
+const LuckySports = forwardRef<HTMLDivElement, LuckySportsProps>(
+  ({ defalut }, ref) => {
+    const [inputs, setInputs] = useState<{ id: number; value: string }[]>([
+      { id: 0, value: "" }, // 初始帶一個輸入框
+    ]);
 
-    // cleanup function
-    return () => {
-      // if (ref?.current) return;
-      ref.current?.kill();
-      ref.current = null;
-    };
-  }, []);
+    function addInput() {
+      setInputs((prev) => [...prev, { id: prev.length, value: "" }]);
+    }
 
-  return (
-    <div>
-      <link
-        rel="stylesheet"
-        href="https://widget-dev-v3.ckex.xyz/mock/style.css"
-        crossOrigin="anonymous"
-      />
-      <div id="sport-root"></div>
-    </div>
-  );
-});
+    function onChangeInput(id: number, newValue: string) {
+      setInputs((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, value: newValue } : item
+        )
+      );
+    }
+
+    if (!defalut[0].checked) {
+      return <div ref={ref}>內容已關閉</div>;
+    }
+
+    return (
+      <div ref={ref}>
+        <h3>{defalut[0].title}</h3>
+
+        {/* 父容器垂直排列 */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {inputs.map(({ id, value }, idx) => (
+            // 這裡每行用 flex 水平排列 input + 按鈕（按鈕只在最後一個input旁出現）
+            <div key={id} style={{ display: "flex", alignItems: "center" }}>
+              <input
+                type="text"
+                placeholder={`輸入框 ${id + 1}`}
+                value={value}
+                onChange={(e) => onChangeInput(id, e.target.value)}
+                style={{ width: "150px", padding: 6, fontSize: 14 }}
+              />
+              {idx === inputs.length - 1 && (
+                <button
+                  type="button"
+                  onClick={addInput}
+                  style={{
+                    marginLeft: 8,
+                    width: 30,
+                    height: 30,
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    lineHeight: "20px",
+                    cursor: "pointer",
+                    userSelect: "none",
+                    borderRadius: 6,
+                  }}
+                  aria-label="新增輸入框"
+                >
+                  +
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+);
 
 export default LuckySports;
