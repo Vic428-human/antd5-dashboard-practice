@@ -23,7 +23,7 @@ type SportsCategory = {
   id: string;
 };
 
-type SettingItem = {
+export type SettingItem = {
   title: string;
   checked: boolean;
   onText: string;
