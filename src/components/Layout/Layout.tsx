@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SidebarMenu from "../Menu/SidebarMenu";
 import LuckySports from "../../components/LuckySports.tsx";
 import { useSettingsStore } from "../../store/store";
+import ManaRecoveryCalculator from "../spComp.tsx";
 
 const { Sider } = Layout;
 
@@ -36,7 +37,8 @@ const ContainerLayout = () => {
       </Sider>
       <Outlet context={{}} />
       {/* 這邊放實際顯示與否的面板 */}
-      <LuckySports ref={divRef} defalut={initialSettings} />
+      {/* <LuckySports ref={divRef} defalut={initialSettings} /> */}
+      <ManaRecoveryCalculator />
       {/* TODO: 下面只是當時在實驗串接別的網頁 */}
       {/* <div className="flex flex-col w-[100%]">
         <div className="flex justify-between p-4">
