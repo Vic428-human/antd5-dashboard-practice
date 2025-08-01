@@ -14,7 +14,6 @@ const LuckySports = forwardRef<HTMLDivElement, LuckySportsProps>(
     const [inputs, setInputs] = useState<{ id: number; value: string }[]>([
       { id: 0, value: "" }, // 初始帶一個輸入框
     ]);
-
     function addInput() {
       setInputs((prev) => [...prev, { id: prev.length, value: "" }]);
     }
@@ -40,13 +39,18 @@ const LuckySports = forwardRef<HTMLDivElement, LuckySportsProps>(
           {inputs.map(({ id, value }, idx) => (
             // 這裡每行用 flex 水平排列 input + 按鈕（按鈕只在最後一個input旁出現）
             <div key={id} style={{ display: "flex", alignItems: "center" }}>
-              <input
-                type="text"
-                placeholder={`輸入框 ${id + 1}`}
-                value={value}
-                onChange={(e) => onChangeInput(id, e.target.value)}
-                style={{ width: "150px", padding: 6, fontSize: 14 }}
-              />
+              <label>
+                INT:
+                <input
+                  type="number"
+                  value={inputs[id].value}
+                  className="border rounded p-1 ml-2 w-24"
+                  placeholder={`輸入框 ${id + 1}`}
+                  onChange={(e) => onChangeInput(id, e.target.value)}
+                  style={{ width: "150px", padding: 6, fontSize: 14 }}
+                />
+              </label>
+
               {idx === inputs.length - 1 && (
                 <button
                   type="button"
