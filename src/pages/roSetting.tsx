@@ -1,12 +1,24 @@
 import React from "react";
 import { Switch } from "antd";
 import { useSettingsStore } from "../store/store";
+import { useOutletContext } from "react-router-dom";
+
+type OutletCtx = {
+  expanded: boolean;
+};
 
 export default function ROSetting() {
-  const { initialSettings, toggleSetting } = useSettingsStore();
+  const { expanded } = useOutletContext<OutletCtx>();
+  useSettingsStore();
   return (
-    <div>
-      {initialSettings.map((setting, index) => (
+    // 展開的時候固定寬度，閉合的時候消失
+    <div
+      className={`h-full bg-red-400 flex flex-col ${
+        expanded ? "max-w-[270px] min-w-[270px]" : "w-0"
+      } `}
+    >
+      123
+      {/* {initialSettings.map((setting, index) => (
         <div
           key={index}
           className="min-w-[260px] shadow-lg overflow-hidden text-white"
@@ -30,7 +42,7 @@ export default function ROSetting() {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }
