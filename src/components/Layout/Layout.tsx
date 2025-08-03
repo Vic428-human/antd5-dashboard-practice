@@ -4,11 +4,15 @@ import { Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSettingsStore } from "../../store/store";
 import ManaRecoveryCalculator from "../spComp.tsx";
-
-const { Sider } = Layout;
+import GearEffectiveness from "../GearEffectiveness.tsx";
 
 const ContainerLayout = () => {
   const navigate = useNavigate();
+  const [enabledMap, setEnabledMap] = useState({
+    gear: true,
+    mana: true,
+  });
+
   const [expanded, setExpanded] = useState(true);
 
   const menuItems = [
@@ -16,6 +20,10 @@ const ContainerLayout = () => {
     { label: "SETTINGS", path: "/setting", Icon: "⚙️", navigate },
     { label: "RO", path: "/ro-setting", Icon: "👤", navigate },
   ];
+
+  const toggle = (key: keyof typeof enabledMap) => {
+    setEnabledMap((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const handleToggle = (nextExpanded?: boolean) => {
     if (typeof nextExpanded === "boolean") {
@@ -58,20 +66,67 @@ const ContainerLayout = () => {
             ⇆
           </button>
         </div>
+        <button
+          onClick={() => toggle("gear")}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Toggle GearEffectiveness
+        </button>
+        <button
+          onClick={() => toggle("mana")}
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        >
+          Toggle ManaRecoveryCalculator
+        </button>
       </div>
-      {/* 第二欄位中間設定 */}
-      <Outlet context={{ expanded }} />
+      <div className="flex flex-row min-w-[800px]">
+        <Outlet context={{ expanded }} />
+      </div>
+      <div className="min-h-screen flex flex-col justify-center items-center ">
+        <FixedWrapper>
+          {enabledMap.gear && (
+            <div className="p-4 bg-gray-100 rounded">
+              <GearEffectiveness />
+            </div>
+          )}
+          {enabledMap.mana && (
+            <div className="p-4 bg-gray-100 rounded">
+              <ManaRecoveryCalculator />
+            </div>
+          )}
+          {enabledMap.mana && (
+            <div className="p-4 bg-gray-100 rounded">
+              <ManaRecoveryCalculator />
+            </div>
+          )}
+        </FixedWrapper>
+      </div>
+
       {/* 這邊放實際顯示與否的面板 */}
+
       {/* <LuckySports ref={divRef} defalut={initialSettings} /> */}
       {/* <RenderContext expanded={expanded} /> */}
 
       {/* 第三欄位渲染顯示的內容 */}
-      <ManaRecoveryCalculator />
     </div>
   );
 };
 
 export default ContainerLayout;
+
+interface FixedWrapperProps {
+  children: React.ReactNode;
+}
+
+export const FixedWrapper: React.FC<FixedWrapperProps> = ({ children }) => {
+  return (
+    <div className="overflow-y-auto">
+      <div className="max-h-[900px] w-auto border border-gray-300 rounded-lg shadow-md bg-white">
+        <div className="space-y-4">{children}</div>
+      </div>
+    </div>
+  );
+};
 
 const MenuItem = ({
   icon,

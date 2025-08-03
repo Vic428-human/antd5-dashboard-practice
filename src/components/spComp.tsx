@@ -58,7 +58,7 @@ export default function ManaRecoveryCalculator() {
   };
 
   return (
-    <div className="w-1/2 mx-auto my-auto h-[760px] p-4 bg-white  rounded-lg">
+    <div className="mx-auto my-auto p-4 bg-white  rounded-lg">
       <div className="h-[300px] overflow-y-scroll overflow-x-hidden no-scrollbar">
         <div className="flex">
           {/* 左半邊 */}
