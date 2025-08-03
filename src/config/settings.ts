@@ -13,4 +13,74 @@ export const initialSettings = [
       { label: "Hide", active: true }, // 已選中
     ] as const,
   },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
+  {
+    title: "footer",
+    options: [
+      { label: "Show", active: false },
+      { label: "Hide", active: true }, // 已選中
+    ] as const,
+  },
 ];
