@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSettingsStore } from "../../store/store";
 import ManaRecoveryCalculator from "../spComp.tsx";
 import GearEffectiveness from "../GearEffectiveness.tsx";
+import { assets } from "../../assets/assets.ts";
 
 const ContainerLayout = () => {
   const navigate = useNavigate();
@@ -16,9 +17,14 @@ const ContainerLayout = () => {
   const [expanded, setExpanded] = useState(true);
 
   const menuItems = [
-    { label: "SPORTS", path: "/sports", Icon: "🏠", navigate },
-    { label: "SETTINGS", path: "/setting", Icon: "⚙️", navigate },
-    { label: "RO", path: "/ro-setting", Icon: "👤", navigate },
+    { label: "SPORTS", path: "/sports", Icon: assets["menu01"], navigate },
+    { label: "SETTINGS", path: "/setting", Icon: assets["menu02"], navigate },
+    {
+      label: "RO",
+      path: "/ro-setting",
+      Icon: assets["menu03"],
+      navigate,
+    },
   ];
 
   const toggle = (key: keyof typeof enabledMap) => {
@@ -141,18 +147,27 @@ const MenuItem = ({
   navigate: (path: string) => void;
   handleToggle: (value: boolean) => void;
 }) => (
-  <div className="flex flex-col items-center text-white hover:text-yellow-400 cursor-pointer">
-    <div
-      className="text-2xl"
-      onClick={() => {
-        navigate(path);
-        handleToggle(true);
-      }}
-    >
-      {icon}
+  console.log("icon==>", icon),
+  (
+    <div className="flex flex-col items-center text-white hover:text-yellow-400 cursor-pointer">
+      <div
+        className="text-2xl"
+        onClick={() => {
+          navigate(path);
+          handleToggle(true);
+        }}
+      >
+        <img
+          src={icon}
+          alt={"alt"}
+          style={{ width: 45, height: 45, verticalAlign: "middle" }}
+          // className={className}
+          draggable={false}
+        />
+      </div>
+      <span className="text-xs mt-1">{label}</span>
     </div>
-    <span className="text-xs mt-1">{label}</span>
-  </div>
+  )
 );
 
 {
