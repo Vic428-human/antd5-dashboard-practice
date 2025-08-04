@@ -1,14 +1,15 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
-import { useNavigate } from "react-router-dom";
-import { useSettingsStore } from "../../store/store";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaBeer } from "react-icons/fa";
 import ManaRecoveryCalculator from "../spComp.tsx";
 import GearEffectiveness from "../GearEffectiveness.tsx";
 import { assets } from "../../assets/assets.ts";
 
 const ContainerLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [enabledMap, setEnabledMap] = useState({
     gear: true,
     mana: true,
@@ -17,20 +18,28 @@ const ContainerLayout = () => {
   const [expanded, setExpanded] = useState(true);
 
   const menuItems = [
-    { label: "SPORTS", path: "/sports", Icon: assets["menu01"], navigate },
-    { label: "SETTINGS", path: "/setting", Icon: assets["menu02"], navigate },
+    {
+      label: "SPORTS",
+      path: "/sports",
+      icon: <FaBeer />, // 包裹在 JSX 元素中
+      navigate,
+      location,
+    },
+    {
+      label: "SETTINGS",
+      path: "/setting",
+      icon: <FaBeer />, // 包裹在 JSX 元素中
+      navigate,
+      location,
+    },
     {
       label: "RO",
       path: "/ro-setting",
-      Icon: assets["menu03"],
+      icon: <FaBeer />, // 包裹在 JSX 元素中
       navigate,
+      location,
     },
   ];
-
-  const toggle = (key: keyof typeof enabledMap) => {
-    setEnabledMap((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
   const handleToggle = (nextExpanded?: boolean) => {
     if (typeof nextExpanded === "boolean") {
       setExpanded(nextExpanded);
@@ -41,27 +50,19 @@ const ContainerLayout = () => {
 
   return (
     <div className="flex flex-row h-screen">
-      {/* 第一欄位菜單 */}
-      <div
-        className="relative w-[80px] h-screen bg-gray-800 max-w-[
-      80px] min-w-[80px]"
-      >
-        {/* 側邊欄邊框線 */}
-        <div className="absolute top-0 right-0 h-full w-[2px] bg-gray-600" />
-
-        {/* 菜單項目 */}
-        <div className="absolute top-0 left-0 w-full flex flex-col items-center pt-4 space-y-6">
-          {menuItems.map((item, index) => (
-            <MenuItem
-              icon={item.Icon}
-              key={index}
-              label={item.label}
-              path={item.path}
-              navigate={item.navigate}
-              handleToggle={handleToggle}
-            />
-          ))}
-        </div>
+      {/* flex-shrink 爲 0，不要有任何壓縮 */}
+      <div className="flex flex-col bg-yellow-400 flex-shrink-0 transition-all hover:opacity-75 duration-400 overflow-hidden relative">
+        {menuItems.map((item, index) => (
+          <MenuItem
+            icon={item.icon}
+            key={index}
+            label={item.label}
+            path={item.path}
+            navigate={item.navigate}
+            handleToggle={handleToggle}
+            location={item.location}
+          />
+        ))}
 
         {/* 展開/收合按鈕 */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 cursor-pointer">
@@ -72,19 +73,8 @@ const ContainerLayout = () => {
             ⇆
           </button>
         </div>
-        <button
-          onClick={() => toggle("gear")}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Toggle GearEffectiveness
-        </button>
-        <button
-          onClick={() => toggle("mana")}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-        >
-          Toggle ManaRecoveryCalculator
-        </button>
       </div>
+
       <div className="flex flex-row min-w-[800px]">
         <Outlet context={{ expanded }} />
       </div>
@@ -107,13 +97,6 @@ const ContainerLayout = () => {
           )}
         </FixedWrapper>
       </div>
-
-      {/* 這邊放實際顯示與否的面板 */}
-
-      {/* <LuckySports ref={divRef} defalut={initialSettings} /> */}
-      {/* <RenderContext expanded={expanded} /> */}
-
-      {/* 第三欄位渲染顯示的內容 */}
     </div>
   );
 };
@@ -134,41 +117,42 @@ export const FixedWrapper: React.FC<FixedWrapperProps> = ({ children }) => {
   );
 };
 
-const MenuItem = ({
+interface MenuItemProps {
+  icon: ReactNode;
+  label: string;
+  path: string;
+  navigate: (path: string) => void;
+  handleToggle: (value: boolean) => void;
+  location: Location;
+}
+
+const MenuItem: React.FC<MenuItemProps> = ({
   icon,
   label,
   path,
   navigate,
   handleToggle,
-}: {
-  icon: string;
-  label: string;
-  path: string;
-  navigate: (path: string) => void;
-  handleToggle: (value: boolean) => void;
-}) => (
-  console.log("icon==>", icon),
-  (
-    <div className="flex flex-col items-center text-white hover:text-yellow-400 cursor-pointer">
+  location,
+}) => {
+  const active =
+    location.pathname === path ||
+    (location.pathname === "/" && path === "/styling");
+  return (
+    <div>
       <div
-        className="text-2xl"
+        className={`w-6 h-6 mb-1 ${active ? "text-primary" : "text-white"}`}
         onClick={() => {
           navigate(path);
           handleToggle(true);
         }}
       >
-        <img
-          src={icon}
-          alt={"alt"}
-          style={{ width: 45, height: 45, verticalAlign: "middle" }}
-          // className={className}
-          draggable={false}
-        />
+        {icon}
       </div>
-      <span className="text-xs mt-1">{label}</span>
+
+      <p className="text-xs mt-1">{label}</p>
     </div>
-  )
-);
+  );
+};
 
 {
   /* TODO: 下面只是當時在實驗串接別的網頁 */
