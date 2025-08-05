@@ -205,7 +205,6 @@ const Home = () => {
         ))}
       </div>
 
-      {/* <ColorPicker onSelect={handleColorChange} /> */}
       <div className="flex flex-col items-center text-center justify-center">
         <div className="flex flex-col items-center justify-center w-[50%]">
           {/* color picker */}
