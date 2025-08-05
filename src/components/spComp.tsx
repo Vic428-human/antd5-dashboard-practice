@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import videoSrc from "../videos/sp.mp4";
 type GearOption = {
   rate: number;

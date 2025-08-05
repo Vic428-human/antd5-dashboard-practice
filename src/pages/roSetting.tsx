@@ -1,4 +1,3 @@
-import React from "react";
 import { Switch } from "antd";
 import { useSettingsStore } from "../store/store";
 import { useOutletContext } from "react-router-dom";
