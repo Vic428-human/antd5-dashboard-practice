@@ -31,7 +31,7 @@ const ContainerLayout = () => {
       location,
     },
     {
-      label: "RO",
+      label: "計算機",
       path: "/ro-setting",
       icon: <FaBeer />, // 包裹在 JSX 元素中
       navigate,
