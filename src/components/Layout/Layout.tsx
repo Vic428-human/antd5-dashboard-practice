@@ -51,7 +51,11 @@ const ContainerLayout = () => {
   return (
     <div className="flex flex-row h-screen">
       {/* flex-shrink 爲 0，不要有任何壓縮 */}
-      <div className="flex flex-col bg-yellow-400 flex-shrink-0 transition-all hover:opacity-75 duration-400 overflow-hidden relative">
+      <div
+        className="flex flex-col bg-[#000000] flex-shrink-0  overflow-hidden relative"
+        style={{ width: 100 }}
+      >
+        <div className="absolute top-0 right-0 h-full w-[2px] bg-red-600 " />
         {menuItems.map((item, index) => (
           <MenuItem
             icon={item.icon}
@@ -63,7 +67,6 @@ const ContainerLayout = () => {
             location={item.location}
           />
         ))}
-
         {/* 展開/收合按鈕 */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 cursor-pointer">
           <button
@@ -138,9 +141,16 @@ const MenuItem: React.FC<MenuItemProps> = ({
     location.pathname === path ||
     (location.pathname === "/" && path === "/styling");
   return (
-    <div>
+    <div
+      className={`mt-2 text-center w-full h-[60px] flex flex-col items-center justify-center cursor-pointer select-none hover:opacity-40  ${
+        active ? "text-primary border-4 border-red-500" : "text-white"
+      }`}
+      style={active ? { borderLeft: "4px solid red" } : {}}
+    >
       <div
-        className={`w-6 h-6 mb-1 ${active ? "text-primary" : "text-white"}`}
+        className={`w-6 h-6 mb-1 ${
+          active ? "text-[#ff0000] border-l-4 border-red-500" : "text-[#ffffff"
+        }`}
         onClick={() => {
           navigate(path);
           handleToggle(true);
@@ -149,7 +159,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         {icon}
       </div>
 
-      <p className="text-xs mt-1">{label}</p>
+      <span className="text-[12px] text-[#ffffff]">{label}</span>
     </div>
   );
 };
