@@ -140,15 +140,13 @@ const MenuItem: React.FC<MenuItemProps> = ({
     (location.pathname === "/" && path === "/styling");
   return (
     <div
-      className={`mt-2 text-center w-full h-[60px] flex flex-col items-center justify-center cursor-pointer select-none hover:opacity-40  ${
+      className={` group  mt-2 text-center w-full h-[60px] flex flex-col items-center justify-center cursor-pointer select-none  ${
         active ? "text-primary border-4 border-red-500" : "text-white"
       }`}
       style={active ? { borderLeft: "4px solid red" } : {}}
     >
       <div
-        className={`w-6 h-6 mb-1 ${
-          active ? "text-[#ff0000] border-l-4 border-red-500" : "text-[#ffffff"
-        }`}
+        className="text-gray-400 group-hover:text-white"
         onClick={() => {
           navigate(path);
           handleToggle(true);
@@ -156,8 +154,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
       >
         {icon}
       </div>
-
-      <span className="text-[12px] text-[#ffffff]">{label}</span>
+      <span className="text-[12px] group-hover:text-white text-gray-400">
+        {label}
+      </span>{" "}
     </div>
   );
 };
