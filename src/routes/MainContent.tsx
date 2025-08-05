@@ -1,17 +1,12 @@
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import Setting from "../pages/Setting.tsx";
 import ROSetting from "../pages/roSetting.tsx";
-import ContainerLayout from "../components/Layout/layout.tsx";
+import ContainerLayout from "../components/Layout/Layout.tsx";
 
 function Menu1Detail() {
   const params = useParams<{ other: string }>();
 
   // 根據 params.other 的值來切換元件
   switch (params.other) {
-    case "devices":
-      return <Setting params={params} />;
-    case "settings":
-      return <Setting params={params} />;
     case "ro-setting":
       return <ROSetting />;
     default:

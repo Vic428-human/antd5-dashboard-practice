@@ -1,11 +1,9 @@
-import { useRef, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Outlet } from "react-router-dom";
-import { Layout } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaBeer } from "react-icons/fa";
 import ManaRecoveryCalculator from "../spComp.tsx";
 import GearEffectiveness from "../GearEffectiveness.tsx";
-import { assets } from "../../assets/assets.ts";
 
 const ContainerLayout = () => {
   const navigate = useNavigate();
