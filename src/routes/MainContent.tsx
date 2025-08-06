@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import ROSetting from "../pages/roSetting.tsx";
+import Sports from "../pages/Sports.tsx";
 import ContainerLayout from "../components/Layout/Layout.tsx";
 
 function Menu1Detail() {
@@ -7,6 +8,8 @@ function Menu1Detail() {
 
   // 根據 params.other 的值來切換元件
   switch (params.other) {
+    case "sports":
+      return <Sports />;
     case "ro-setting":
       return <ROSetting />;
     default:
