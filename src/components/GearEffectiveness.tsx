@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const RO_ATTRIBUTES = ["無屬", "火", "水", "風", "地", "聖", "暗", "毒"];
 
 // 傷害減免計算
-function calculateDamageAfterReduction(originalDamage, reductionPercent) {
+function calculateDamageAfterReduction(
+  originalDamage: number,
+  reductionPercent: number
+) {
   if (originalDamage < 0) return 0;
   if (reductionPercent < 0 || reductionPercent > 100) return 0;
   return originalDamage * (1 - reductionPercent / 100);
@@ -12,21 +15,20 @@ function calculateDamageAfterReduction(originalDamage, reductionPercent) {
 function DamageReduction() {
   const [defenderAttribute, setDefenderAttribute] = useState("無屬");
   const [attackerAttribute, setAttackerAttribute] = useState("無屬");
-  const [originalDamage, setOriginalDamage] = useState("");
-  const [reductionPercent, setReductionPercent] = useState("");
+  const [originalDamage, setOriginalDamage] = useState<string>("");
+  const [reductionPercent, setReductionPercent] = useState<string>("");
 
   const isEffective = attackerAttribute === defenderAttribute;
+  const originalDamageNum = Number(originalDamage);
+  const reductionPercentNum = Number(reductionPercent);
 
   const reducedDamage =
     isEffective &&
     originalDamage !== "" &&
     reductionPercent !== "" &&
-    !isNaN(originalDamage) &&
-    !isNaN(reductionPercent)
-      ? calculateDamageAfterReduction(
-          Number(originalDamage),
-          Number(reductionPercent)
-        )
+    !isNaN(originalDamageNum) &&
+    !isNaN(reductionPercentNum)
+      ? calculateDamageAfterReduction(originalDamageNum, reductionPercentNum)
       : null;
 
   return (
@@ -78,12 +80,14 @@ function DamageReduction() {
             />
           </div>
           {/* 新增判斷：isEffective 為 false 時，顯示與原始傷害相同的傷害 */}
-          {!isEffective && originalDamage !== "" && !isNaN(originalDamage) && (
-            <div className="mt-3 text-gray-600 italic">
-              因屬性不符，傷害將與原始傷害相同：
-              {Number(originalDamage).toFixed(2)}
-            </div>
-          )}
+          {!isEffective &&
+            originalDamage !== "" &&
+            !isNaN(originalDamageNum) && (
+              <div className="mt-3 text-gray-600 italic">
+                因屬性不符，傷害將與原始傷害相同：
+                {Number(originalDamage).toFixed(2)}
+              </div>
+            )}
           {isEffective && reducedDamage !== null && (
             <div className="mt-4 text-lg font-semibold text-blue-700">
               穿抗裝備後的傷害：約 {reducedDamage.toFixed(2)}
